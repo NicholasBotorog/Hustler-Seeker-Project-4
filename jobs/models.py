@@ -13,6 +13,11 @@ class Job(models.Model):
     'tags.Tag',
     related_name = 'jobs'
   )
+  owner = models.ForeignKey(
+        'jwt_auth.User',
+        related_name='albums',
+        on_delete=models.CASCADE
+    )
 
 
   def __str__(self):

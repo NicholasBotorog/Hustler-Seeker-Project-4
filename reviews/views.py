@@ -7,9 +7,11 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers.common import ReviewSerializer
 from .models import Review
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 # Create your views here.
 class ReviewListView(APIView):
-    # permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         user = request.user

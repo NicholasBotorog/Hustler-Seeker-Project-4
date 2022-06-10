@@ -26,6 +26,7 @@ class RegisterView(APIView):
       print(e)
       return Response({ 'detail': str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+
 class LoginView(APIView):
   def post(self, request):
     email = request.data.get('email')
