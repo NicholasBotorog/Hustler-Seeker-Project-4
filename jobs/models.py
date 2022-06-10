@@ -14,5 +14,6 @@ class Job(models.Model):
     related_name = 'jobs'
   )
 
+
   def __str__(self):
     return f'{self.company} is looking for a {self.title} (${self.salary} / year)'
