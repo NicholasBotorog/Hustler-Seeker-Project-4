@@ -51,3 +51,14 @@ class LoginView(APIView):
     )
 
     return Response({ 'message': f'Welcome Back, {user_to_validate.username}', 'token': token }, status.HTTP_202_ACCEPTED)
+
+
+class RetriveUSerView(APIView):
+  def get(self, request):
+    try:
+      user = request.user 
+      user = UserSerializer(user)
+      return Response({'user': user.data}, status.HTTP_200_OK )
+    except Exception as e:
+      return Response({ 'message': 'Something went wrong' })
+

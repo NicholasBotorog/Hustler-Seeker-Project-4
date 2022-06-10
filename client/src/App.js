@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 const App = () => {
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get('/api/auth/user/')
+      const { data } = await axios.get('/api/jobs/')
       console.log(data)
     }
     getData()
