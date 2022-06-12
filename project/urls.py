@@ -22,5 +22,4 @@ urlpatterns = [
     path('api/jobs/', include('jobs.urls')),
     path('api/tags/', include('tags.urls')),
     path('api/reviews/', include('reviews.urls')),
-    
 ]

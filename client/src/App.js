@@ -1,17 +1,35 @@
-import { useEffect } from 'react'
-import axios from 'axios'
+
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-const App = () => {
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get('/api/jobs/')
-      console.log(data)
-    }
-    getData()
-  })
+import Jobs from './components/Jobs/Jobs'
+import PageNavbar from './components/Common/Navbar'
+import Register from './components/Auth/Register'
+import Login from './components/Auth/Login'
+import UserProfile from './components/Profile/UserProfile'
+import AddJobs from './components/Jobs/AddJob'
+import SingleJob from './components/Jobs/SingleJob'
+import EditJob from './components/Jobs/EditJob'
 
-  return <h1>Hello World</h1>
+
+const App = () => {
+  return (
+    <main className='site-wrapper'>
+      <BrowserRouter>
+        <PageNavbar />
+        <Routes>
+          <Route path='/jobs' element={<Jobs />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/post' element={< AddJobs />} />
+          <Route path='/jobs/:id/' element={<SingleJob />} />
+          <Route path='/jobs/:id/edit/' element={<EditJob /> } />
+        </Routes>
+      </BrowserRouter>
+    </main>
+  )
 }
+
 
 export default App

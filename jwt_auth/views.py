@@ -41,6 +41,7 @@ class LoginView(APIView):
 
     dt = datetime.now() + timedelta(days=14)
 
+
     token = jwt.encode(
       {
         'sub': user_to_validate.id,
@@ -53,12 +54,31 @@ class LoginView(APIView):
     return Response({ 'message': f'Welcome Back, {user_to_validate.username}', 'token': token }, status.HTTP_202_ACCEPTED)
 
 
-class RetriveUSerView(APIView):
+class UserView(APIView):
+  
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise PermissionDenied(detail="Invalid Credentials")
+
+    def get(self, _request, pk):
+        user = self.get_user(pk=pk)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+
+
+class LoggedUserView(APIView):
+
+  def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise PermissionDenied(detail="Invalid Credentials")
+
   def get(self, request):
-    try:
-      user = request.user 
-      user = UserSerializer(user)
-      return Response({'user': user.data}, status.HTTP_200_OK )
-    except Exception as e:
-      return Response({ 'message': 'Something went wrong' })
+        user = self.get_user(pk=request.user.id)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+
 

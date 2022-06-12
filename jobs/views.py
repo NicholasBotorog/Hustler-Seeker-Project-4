@@ -31,7 +31,7 @@ class JobListView(APIView):
 
 
 class JobDetailListView(APIView):
-  permission_classes = (IsAuthenticated, )
+  # permission_classes = (IsAuthenticated, )
 
   def get_job(self, pk):
     try:
@@ -40,7 +40,7 @@ class JobDetailListView(APIView):
       raise NotFound({ 'detail': str(e) })
 
   def get(self, _request, pk):
-    job = self.get_job(pk)
+    job = Job.objects.get(pk=pk)
     serialized_job = PopulatedJobsSerializer(job)
     return Response(serialized_job.data, status.HTTP_200_OK)
 
