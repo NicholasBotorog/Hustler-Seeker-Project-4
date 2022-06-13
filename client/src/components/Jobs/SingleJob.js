@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { userIsOwner } from '../Helpers/auth'
 import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
+import Jobs from './Jobs'
 
 const SingleJob = () => { 
 
@@ -64,10 +65,17 @@ const SingleJob = () => {
               <hr />
               {userIsOwner(job.owner.id) && (
                 <div className="owner-buttons mb-4">
-                  <Button classname="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
+                  <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
                   <Link className='btn btn-primary ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
                 </div>
               )}
+              <div>
+                {job.tags.map((tag) => (
+                  <ul key={tag.name}>
+                    {tag.name}
+                  </ul>
+                ))}
+              </div>
               <Link to="/jobs" className='btn btn-secondary'>Back to Jobs</Link>
             </Col>
           </>

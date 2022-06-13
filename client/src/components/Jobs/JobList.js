@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
+import { userIsOwner } from '../Helpers/auth'
+
 const JobList = ({ job }) => { 
   const handleDelete = async (id) => { 
     try {
@@ -20,11 +22,11 @@ const JobList = ({ job }) => {
     }
   }
 
-  const userIsOwner = (ownerId) => {
-    const payload = getPayload()
-    if (!payload) return 
-    return ownerId === payload.sub
-  }
+  // const userIsOwner = (ownerId) => {
+  //   const payload = getPayload()
+  //   if (!payload) return 
+  //   return ownerId === payload.sub
+  // }
 
   return (
     <Container className="mt-4">
@@ -47,7 +49,7 @@ const JobList = ({ job }) => {
             { userIsOwner(job.owner.id) && (
               <div className="owner-buttons mb-4">
                 <Button variant="danger" onClick={handleDelete}>Delete Post</Button>
-                <Link className='btn btn-primary' to={`/jobs/${job.id}/edit`}>Edit Post</Link>
+                <Link className='btn btn-primary' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
               </div>
             )}
             <Link to="/jobs" className='btn btn-warning'>All Jobs</Link>

@@ -39,3 +39,17 @@
   width: 20px;
   margin-bottom: 3px;
 }
+
+.search {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .search-bar {
+    width: 40%;
+    margin-top: 25px;
+    text-align: center;
+  }
+}

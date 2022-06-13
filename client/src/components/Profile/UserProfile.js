@@ -3,22 +3,21 @@ import { getTokenFromLocalStorage, getUserId } from '../Helpers/auth'
 import axios from 'axios'
 import JobList from '../Jobs/JobList'
 import SingleJob from '../Jobs/SingleJob'
-import JobCard from '../Jobs/JobList'
 
 const UserProfile = () => { 
 
   const [profile, setProfile] = useState()
   const [profileErrors, setProfileErrors] = useState(false)
   const [jobs, setJobs] = useState([])
-  // const [jobErrors, setJobErrors] = useState(false)
+  const [jobErrors, setJobErrors] = useState(false)
 
   useEffect(() => { 
     const getData = async () => { 
       try { 
         const { data } = await axios.get('/api/jobs/')
         setJobs(data)
-      } catch (error){
-        // setJobErrors(error)
+      } catch (error) { 
+        console.log(error) 
       }
     }
     getData()
@@ -33,7 +32,7 @@ const UserProfile = () => {
         console.log(data)
         setProfile(data)
       } catch (error) {
-        setProfileErrors(error)
+        setProfileErrors(true)
       }
     }
     getUser()

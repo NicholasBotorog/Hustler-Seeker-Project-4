@@ -2,7 +2,6 @@ export const getTokenFromLocalStorage = () => {
   return window.localStorage.getItem('token')
 }
 
-// taking the token, splitting it up and returning the payload thats encoded
 export const getPayload = () => {
   const token = getTokenFromLocalStorage()
   if (!token) return
@@ -11,7 +10,6 @@ export const getPayload = () => {
   return JSON.parse(atob(splitToken[1]))
 }
 
-// checking to see if user is authenticated
 export const userIsAuthenticated = () => {
   const payload = getPayload()
   if (!payload) return false
@@ -19,7 +17,6 @@ export const userIsAuthenticated = () => {
   return currentTime < payload.exp
 }
 
-// checking that user id from payload matches job user id
 export function userIsOwner(userId) {
   const payload = getPayload()
   if (!payload) {
