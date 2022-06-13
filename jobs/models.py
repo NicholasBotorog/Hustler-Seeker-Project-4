@@ -13,12 +13,28 @@ class Job(models.Model):
     'tags.Tag',
     related_name = 'jobs'
   )
+
   owner = models.ForeignKey(
         'jwt_auth.User',
-        related_name='albums',
+        related_name='jobs',
         on_delete=models.CASCADE
     )
 
 
   def __str__(self):
     return f'{self.company} is looking for a {self.title} (${self.salary} / year)'
+
+# class Aplicants(models.Model):
+#   job=models.ForeignKey(
+#     Job,
+#     related_name ='aplications',
+#     on_delete=models.CASCADE
+#   )
+#   owner = models.ForeignKey(
+#     'jwt_auth.User',
+#     related_name='aplications',
+#     on_delete=models.CASCADE
+#   )
+
+#   def __self__(self):
+#     return f'{self.owner} has applied for {self.job} position'
