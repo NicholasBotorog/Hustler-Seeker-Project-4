@@ -15,7 +15,7 @@ class Job(models.Model):
   )
   owner = models.ForeignKey(
         'jwt_auth.User',
-        related_name='albums',
+        related_name='jobs',
         on_delete=models.CASCADE
     )
 

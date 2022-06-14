@@ -22,11 +22,11 @@ const JobList = ({ job }) => {
     }
   }
 
-  // const userIsOwner = (ownerId) => {
-  //   const payload = getPayload()
-  //   if (!payload) return 
-  //   return ownerId === payload.sub
-  // }
+  const userIsOwner = (ownerId) => {
+    const payload = getPayload()
+    if (!payload) return 
+    return ownerId === payload.sub
+  }
 
   return (
     <Container className="mt-4">

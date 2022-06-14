@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { getTokenFromLocalStorage, getUserId } from '../Helpers/auth'
 import axios from 'axios'
 import JobList from '../Jobs/JobList'
 import SingleJob from '../Jobs/SingleJob'
+import { useParams } from 'react-router-dom'
 
 const UserProfile = () => { 
 
@@ -11,17 +12,32 @@ const UserProfile = () => {
   const [jobs, setJobs] = useState([])
   const [jobErrors, setJobErrors] = useState(false)
 
-  useEffect(() => { 
-    const getData = async () => { 
-      try { 
-        const { data } = await axios.get('/api/jobs/')
-        setJobs(data)
-      } catch (error) { 
-        console.log(error) 
-      }
+  // useEffect(() => { 
+  //   const getData = async () => { 
+  //     try { 
+  //       const { data } = await axios.get('/api/jobs/')
+  //       console.log(data)
+  //       setJobs(data)
+  //     } catch (error) { 
+  //       console.log(error) 
+  //     }
+  //   }
+  //   getData()
+  // }, [setJobs])
+
+  const getJobs = useCallback(async () => {
+    try {
+      const { data } = await axios.get('/api/jobs/')
+      setJobs(data)
+      console.log(data)
+    } catch (error) {
+      setJobErrors(true)
     }
-    getData()
-  }, [setJobs])
+  }, [])
+
+  useEffect(() => {
+    getJobs()
+  }, [getJobs])
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,9 +54,16 @@ const UserProfile = () => {
     getUser()
   }, [])
 
+
   const userId = getUserId()
 
-  const userJobs = jobs.filter((job) => job.owner.id === userId)
+  const userJobs = jobs?.filter((job) => job.owner.id === userId)
+
+  const userAplications = jobs.filter(job => {
+    return job.aplication.find((aplication) => aplication.owner === userId)
+  //          job.aplication.find((aplication) => aplication.owner === userId)
+  })
+  // const apply = jobs.aplication.find((aplication) => aplication.owner === userId)
 
   console.log('USER JOBS',userJobs)
 
@@ -67,6 +90,13 @@ const UserProfile = () => {
                   </>
                 } */}
             { userJobs.map((job) => ( 
+              <JobList key={job._id} job={job} />
+            ))}
+          </div>
+          <hr />
+          <h3>Jobs You have Applied For :</h3>
+          <div>
+            {userAplications.map((job) => (
               <JobList key={job._id} job={job} />
             ))}
           </div>

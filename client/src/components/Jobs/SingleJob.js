@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import { userIsOwner } from '../Helpers/auth'
+import { getUserId, userIsOwner } from '../Helpers/auth'
 import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
 import Jobs from './Jobs'
 
@@ -45,6 +45,39 @@ const SingleJob = () => {
     }
   }
 
+  const handleApply = async () => { 
+    try { 
+      await axios.post('/api/aplication/', {
+        job: job.id,
+        applied: true,
+      },
+      {
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      }
+      )
+      await getSingleJob()
+    } catch (error) { 
+      console.log(error)
+    }
+  }
+
+  const handleDeleteAplication = async(aplicationId) => {
+    try {
+      await axios.delete(`/api/aplication/${aplicationId}/`, {
+        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
+      })
+      await getSingleJob()
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
+  const userId = getUserId()
+  const apply = job && job.aplication.find((aplication) => aplication.owner === userId)
+  const userAplication = userId && !!apply
+
+  console.log('USER IS APLLYING', userAplication)
+
   return (
     <Container className="mt-4">
       <Row>
@@ -63,6 +96,19 @@ const SingleJob = () => {
               <hr />
               <p>{job.salary}</p>
               <hr />
+              <div>
+                { userAplication ? (
+                  <Button className="ml-3" variant="danger" onClick={() => handleDeleteAplication(apply.id)}>
+                    Unapply
+                  </Button>
+                ) :
+                  (
+                    <Button className="ml-3" variant="success" onClick={handleApply}>
+                    Apply 
+                    </Button>
+                  )
+                }
+              </div>
               {userIsOwner(job.owner.id) && (
                 <div className="owner-buttons mb-4">
                   <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
