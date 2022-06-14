@@ -14,7 +14,7 @@ const Register = () => {
     password: '',
     password_confirmation: '',
     profile_image:
-      'http://romanroadtrust.co.uk/wp-content/uploads/2018/01/profile-icon-png-898.png',
+      'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
   })
 
   const [ errors, setErrors ] = useState({
