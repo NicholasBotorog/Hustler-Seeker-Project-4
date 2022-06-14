@@ -4,6 +4,7 @@ import axios from 'axios'
 import JobList from '../Jobs/JobList'
 import SingleJob from '../Jobs/SingleJob'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const UserProfile = () => { 
 
@@ -60,23 +61,20 @@ const UserProfile = () => {
           <h2>Welcome, {profile.first_name}</h2>
           <h3> Your Jobs: </h3>
           <div>
-            {/* {userJobs.length > 0 ?
-                  <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-                    {userJobs.map((job) => (
-                      <JobList key={job._id} job={job} />
-                    ))}
-                  </div>
-                  :
-                  <>
-                    <p className="p-4">Oh no, looks like you haven&apos;t posted any jobs yet! Why not posting one today ? It is free 😉</p>
-                    <a href="/post">
-                      <button className="bg-pawhub-yellow hover:bg-pawhub-yellow/50 text-pawhub-grey font-bold py-2 px-4 m-3 rounded"> Post </button>
-                    </a>
-                  </>
-                } */}
-            { userJobs.map((job) => ( 
-              <JobList key={job._id} job={job} />
-            ))}
+            {userJobs.length > 0 ?
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+                {userJobs.map((job) => (
+                  <JobList key={job._id} job={job} />
+                ))}
+              </div>
+              :
+              <>
+                <p className="p-4">Oh no, looks like you haven&apos;t posted any jobs yet! Why not posting one today ? It is free 😉</p>
+                <a href="/post">
+                  <button className="font-bold py-2 px-4 m-3 rounded"> Post </button>
+                </a>
+              </>
+            }
           </div>
           <hr />
           <h3>Jobs You have Applied For :</h3>
@@ -85,6 +83,9 @@ const UserProfile = () => {
               <JobList key={job._id} job={job} />
             ))}
           </div>
+          <>
+            <Link className='btn btn-primary ml-3' to={'/profile/edit/'}>Edit Profile</Link>
+          </>
         </>
       ) : (
         <>

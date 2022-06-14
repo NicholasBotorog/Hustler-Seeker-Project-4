@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React , { useState , useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link , useNavigate, useParams } from 'react-router-dom'
+import { getTokenFromLocalStorage, getPayload, userIsOwner } from '../Helpers/auth'
+import ImageUpload from '../Helpers/ImageUpload'
+import Select from 'react-select'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import ImageUpload from '../Helpers/ImageUpload'
+import makeAnimated from 'react-select/animated'
 
+const EditProfile = () => {
 
-const Register = () => {
   const navigate = useNavigate()
-  const [ formData, setFormData ] = useState({
+  const [profile, setProfile] = useState()
+  const [formData, setFormData] = useState({
     username: '',
     email: '',
     first_name: '',
@@ -18,37 +23,52 @@ const Register = () => {
     profile_image:
       'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
   })
+  const [errors, setErrors] = useState(false)
 
-  const [ errors, setErrors ] = useState()
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value })
+  const handleChange = (e) => { 
+    setFormData({ ...formData, [e.target.name]: e.target.value })
     setErrors({ ...errors, [e.target.name]: '' })
   }
 
-  const setTokenToLocalStorage = (token) => {
-    window.localStorage.setItem('token', token)
-  }
+  useEffect(() => {
+    const getProfile = async () => { 
+      try {
+        const { data } = await axios.get('/api/auth/user/')
+        console.log(data)
+        setProfile(data)
+        setFormData(
+          {
+            username: data.username,
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
+            profile_image: data.profile_image,
+            // owner: data.owner.id,
+          }
+        )
+      } catch (error) {
+        setErrors(error.response.data.errors)
+      }
+    }
+    getProfile()
+  }, [])
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     try {
-      const { data } = await axios.post('/api/auth/register/', formData)
-      setTokenToLocalStorage(data.token)
-      navigate('/login')
+      const { data } = await axios.put('/api/auth/user/', formData, {
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+        },
+      })
+      navigate('/profile')
     } catch (error) {
       console.log(error)
       console.log(error.response)
       console.log(error.response.data)
       setErrors(error.response.data)
-    }
-  }
-
-  const handleImageUrl = (url) => {
-    try {
-      setFormData({ ...formData, profile_image: url })
-    } catch (error) {
-      console.log(error)
     }
   }
 
@@ -62,6 +82,7 @@ const Register = () => {
             <label htmlFor="username">Username</label>
             <input type="text" name="username" className='input' placeholder='Username' value={formData.username} onChange={handleChange} />
             {errors.username && <p className='text-danger'>{errors.username}</p>}
+            
             {/* Email */}
             <label htmlFor="email">Email</label>
             <input type="email" name="email" className='input' placeholder='Email' value={formData.email} onChange={handleChange} />
@@ -93,7 +114,7 @@ const Register = () => {
                 setFormData={setFormData}
               />
             </div>
-
+      
             {/* Submit */}
             <button type="submit" className="btn w-100">Register</button>
           </form>
@@ -103,4 +124,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default EditProfile

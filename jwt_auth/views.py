@@ -4,8 +4,9 @@ from rest_framework import status
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from datetime import datetime, timedelta
 from django.conf import settings
-import jwt
+from rest_framework.permissions import IsAuthenticated
 
+import jwt
 from .serializers.common import UserSerializer
 
 from django.contrib.auth import get_user_model
@@ -69,6 +70,7 @@ class UserView(APIView):
 
 
 class LoggedUserView(APIView):
+  permission_classes = (IsAuthenticated, )
 
   def get_user(self, pk):
         try:
@@ -81,4 +83,17 @@ class LoggedUserView(APIView):
         serialized_user = UserSerializer(user)
         return Response(serialized_user.data, status=status.HTTP_200_OK)
 
+  def put (self, request, pk): 
+    user_to_edit = self.get_user(pk, request.user.id)
+    deserialized_user= UserSerializer(user_to_edit, data=request.data)
+    try:
+      deserialized_user.is_valid(True)
+      deserialized_user.save()
+      return Response(deserialized_user.data, status.HTTP_202_ACCEPTED)
+    except Exception as e:
+      return Response({ 'error' : str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+  def delete(self, request,pk):
+    user_to_delete = self.get_user(pk, request.user.id)
+    user_to_delete.delete()
+    return Response(status = status.HTTP_204_NO_CONTENT)
