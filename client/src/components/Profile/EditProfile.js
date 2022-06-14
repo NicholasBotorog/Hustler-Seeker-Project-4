@@ -3,11 +3,11 @@ import axios from 'axios'
 import { Link , useNavigate, useParams } from 'react-router-dom'
 import { getTokenFromLocalStorage, getPayload, userIsOwner } from '../Helpers/auth'
 import ImageUpload from '../Helpers/ImageUpload'
-import Select from 'react-select'
+
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import makeAnimated from 'react-select/animated'
+
 
 const EditProfile = () => {
 
@@ -23,7 +23,12 @@ const EditProfile = () => {
     profile_image:
       'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
   })
-  const [errors, setErrors] = useState(false)
+  const [errors, setErrors] = useState(({
+    email: [],
+    username: [],
+    password: [],
+    passwordConfirmation: [],
+  }))
 
   const handleChange = (e) => { 
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -33,7 +38,11 @@ const EditProfile = () => {
   useEffect(() => {
     const getProfile = async () => { 
       try {
-        const { data } = await axios.get('/api/auth/user/')
+        const { data } = await axios.get('/api/auth/user/', {
+          headers: {
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+          } ,
+        })
         console.log(data)
         setProfile(data)
         setFormData(
@@ -77,7 +86,7 @@ const EditProfile = () => {
       <Container>
         <Row>
           <form className='col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mb-5' onSubmit={handleSubmit}>
-            <h1>Register</h1>
+            <h1>Edit Profile</h1>
             {/* Username */}
             <label htmlFor="username">Username</label>
             <input type="text" name="username" className='input' placeholder='Username' value={formData.username} onChange={handleChange} />
@@ -116,7 +125,7 @@ const EditProfile = () => {
             </div>
       
             {/* Submit */}
-            <button type="submit" className="btn w-100">Register</button>
+            <button type="submit" className="btn w-100">Update</button>
           </form>
         </Row>
       </Container>

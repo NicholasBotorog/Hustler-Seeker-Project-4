@@ -19,7 +19,12 @@ const Register = () => {
       'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
   })
 
-  const [ errors, setErrors ] = useState()
+  const [ errors, setErrors ] = useState({
+    email: [],
+    username: [],
+    password: [],
+    passwordConfirmation: [],
+  })
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value })

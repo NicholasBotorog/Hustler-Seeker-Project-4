@@ -5,7 +5,6 @@ from rest_framework.exceptions import PermissionDenied, ValidationError
 from datetime import datetime, timedelta
 from django.conf import settings
 from rest_framework.permissions import IsAuthenticated
-
 import jwt
 from .serializers.common import UserSerializer
 
@@ -84,7 +83,7 @@ class LoggedUserView(APIView):
         return Response(serialized_user.data, status=status.HTTP_200_OK)
 
   def put (self, request, pk): 
-    user_to_edit = self.get_user(pk, request.user.id)
+    user_to_edit = self.get_user(pk = request.user.id)
     deserialized_user= UserSerializer(user_to_edit, data=request.data)
     try:
       deserialized_user.is_valid(True)
