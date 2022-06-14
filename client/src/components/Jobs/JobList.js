@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
 
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+import { Row, Col, Button, Card, Container } from 'react-bootstrap'
 
 import { userIsOwner } from '../Helpers/auth'
 
@@ -22,40 +19,30 @@ const JobList = ({ job }) => {
     }
   }
 
-  const userIsOwner = (ownerId) => {
-    const payload = getPayload()
-    if (!payload) return 
-    return ownerId === payload.sub
-  }
-
   return (
-    <Container className="mt-4">
-      <Row>
-        <>
-          <Col xs="12">
-            <h1>{job.company}</h1>
-            <hr />
-          </Col>
-          {/* <Col md="6">
-            <img src={cheese.image} alt={cheese.name} />
-          </Col> */}
-          <Col md="6">
-            <p>{job.title}</p>
-            <hr />
-            <p>{job.description}</p>
-            <hr />
-            <p>{job.job_location}</p>
-            <hr />
-            { userIsOwner(job.owner.id) && (
-              <div className="owner-buttons mb-4">
-                <Button variant="danger" onClick={() => handleDelete(job.id)}>Delete Post</Button>
-                <Link className='btn btn-primary' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
-              </div>
-            )}
-            <Link to="/jobs" className='btn btn-warning'>All Jobs</Link>
-          </Col>
-        </>
-      </Row>
+    <Container className="mt-4 job-user">
+
+      <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}`} >
+        <Col className='job-list'>
+          <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
+            <Card.Header>{job.company}</Card.Header>
+            <Card.Body>
+              <Card.Title>
+                {job.title}
+              </Card.Title>
+              <Card.Text>{job.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Link>
+
+      { userIsOwner(job.owner.id) && (
+        <div className="owner-buttons mb-4">
+          <Button variant="danger" onClick={() => handleDelete(job.id)}>Delete Post</Button>
+          <Link className='btn btn-primary' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
+        </div>
+      )}
+      <Link to="/jobs" className='btn btn-warning'>All Jobs</Link>
     </Container>
   )
 }

@@ -6,6 +6,22 @@ import SingleJob from '../Jobs/SingleJob'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+// !
+import { ThemeProvider } from '@material-ui/core'
+// import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+// import EditSharpIcon from '@material-ui/icons/EditSharp'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  CardActions
+} from '@material-ui/core'
+
+
+
 const UserProfile = () => { 
 
   const [profile, setProfile] = useState()
@@ -78,20 +94,22 @@ const UserProfile = () => {
           </div>
           <hr />
           <h3>Jobs You have Applied For :</h3>
-          {userAplications.lenght > 0 ? 
-            <div>
-              {userAplications.map((job) => (
-                <JobList key={job._id} job={job} />
-              ))}
-            </div>
-            :
-            <>
+          {/* {userAplications.lenght > 0 ?  */}
+          <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
+            {userAplications.map((job) => (
+
+              <JobList key={job._id} job={job} />
+              
+            ))}
+          </div>
+          {/* :  */}
+          {/* <>
               <p className="p-4">Oh no, looks like you haven&apos;t checked our husle section yet. Go get that mula Champ 🤑</p>
               <a href="/jobs">
                 <button className="font-bold py-2 px-4 m-3 rounded">Check out all the available Jobs</button>
               </a>
             </>
-          }
+          }  */}
           <>
             <Link className='btn btn-primary ml-3' to={'/profile/edit/'}>Edit Profile</Link>
           </>

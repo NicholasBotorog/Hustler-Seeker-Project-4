@@ -4,8 +4,27 @@ import axios from 'axios'
 import { useParams, Link } from 'react-router-dom'
 import Select from 'react-select'
 
-import { Container, Row, Col, Card, Form, FormControl, Spinner, Button } from 'react-bootstrap'
+// import { Container, Row, Col,Form, FormControl, Spinner
+//   Card, 
+//  Button 
+// } from 'react-bootstrap'
+
+import { Row, Col, Button, Card, Container, Form, FormControl } from 'react-bootstrap'
 import JobList from './JobList'
+
+// !
+import { ThemeProvider } from '@material-ui/core'
+// import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+// import EditSharpIcon from '@material-ui/icons/EditSharp'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import {
+  Typography,
+  // Button,
+  // Card,
+  CardContent,
+  TextField,
+  CardActions
+} from '@material-ui/core'
 
 const Jobs = () => { 
 
@@ -108,67 +127,68 @@ const Jobs = () => {
   }
 
   return (
-    <>
+    <Container className='mt-4'>
       {jobs && !errors && (
         <>
           <>
             <h1>Our jobs:</h1>
-
-            <label className="p-1">Location</label>
-            <div className="text-pawhub-grey">
-              <Select  
-                options={locationSelectOption}
-                // components = {animatedComponents}
-                isMulti
-                onChange={handleLocationSelect}
-                value={location.map(item=> ({
-                  label: item[0] + item.substring(1),
-                  value: item,
-                }))}
-              />
-            </div>
-            
-
-            <Form>
-              <Form.Group className='search'>
-                <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
-              </Form.Group>
-            </Form>
-          </>
-          <ul>
-            <li>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 bg-pawhub-yellow pt-10">
-                {filteredJobs
-                  .slice(0, page * jobsPerPage)
-                  .map((job) => {
-                    return (
-                      <>
-                        <Link to={`/jobs/${job.id}/`}>
-                          <div>
-                            <hr />
-                            <h1>{job.company}</h1>
-                            <h2>{job.title}</h2>
-                            <h3>{job.salary}</h3>
-                            <hr />
-                          </div>
-                        </Link>
-                      </>
-                    )
-                  })}
-                <div>
-                  {page < totalPages && (
-                    <Button onClick={() => setPage(page + 1)}>
-                      Load more ..
-                    </Button>
-                  )}
-                </div>
+            <Container className='search-section'>
+              <div className='search-dropdown'>
+                <label className="p-1">Location</label>
+                <Select
+                  options={locationSelectOption}
+                  // components = {animatedComponents}
+                  isMulti
+                  onChange={handleLocationSelect}
+                  value={location.map(item => ({
+                    label: item[0] + item.substring(1),
+                    value: item,
+                  }))} />
               </div>
-            </li>
-          </ul>
+
+              <Form className='search-field'>
+                <Form.Group >
+                  <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+                </Form.Group>
+              </Form>
+            </Container>
+          </>
+          <Container className='mt-5 jobs-main'>
+            <Row>
+              {filteredJobs
+                .slice(0, page * jobsPerPage)
+                .map((job) => {
+                  return (
+                    <>
+                      <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}/`}>
+                        <Col className='job-list'>
+                          <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
+                            <Card.Header>{job.company}</Card.Header>
+                            <Card.Body>
+                              <Card.Title>
+                                {job.title}
+                              </Card.Title>
+                              <Card.Text>{job.description}</Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </Col>
+                      </Link>
+                    </>
+                  )
+                })}
+            </Row>
+          </Container>
+          <div>
+            {page < totalPages && (
+              <Button onClick={() => setPage(page + 1)}>
+                Load more ..
+              </Button>
+            )}
+          </div>
         </>
       )
       }
-    </>
+    </Container>
   )
 }
 

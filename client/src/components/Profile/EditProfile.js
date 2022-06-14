@@ -54,7 +54,7 @@ const EditProfile = () => {
             password: data.password,
             password_confirmation: data.password_confirmation,
             profile_image: data.profile_image,
-            // owner: data.owner.id,
+            // id: data.id,
           }
         )
       } catch (error) {

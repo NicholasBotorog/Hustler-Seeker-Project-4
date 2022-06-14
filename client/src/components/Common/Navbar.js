@@ -43,7 +43,7 @@ const PageNavbar = () => {
           {userIsAuthenticated() ?
             <>
               <Nav.Link as={Link} to="/post">Post</Nav.Link>
-              <Nav.Link as={Link} to="/profile">Profile<img className='navbar-pic' src={profile.profile_image} /> </Nav.Link>
+              <Nav.Link as={Link} to="/profile">{profile.first_name}<img className='navbar-pic' src={profile.profile_image} /> </Nav.Link>
               <Nav.Link onClick={handleLogOut}>Logout</Nav.Link>
             </>
             :
