@@ -12,19 +12,6 @@ const UserProfile = () => {
   const [jobs, setJobs] = useState([])
   const [jobErrors, setJobErrors] = useState(false)
 
-  // useEffect(() => { 
-  //   const getData = async () => { 
-  //     try { 
-  //       const { data } = await axios.get('/api/jobs/')
-  //       console.log(data)
-  //       setJobs(data)
-  //     } catch (error) { 
-  //       console.log(error) 
-  //     }
-  //   }
-  //   getData()
-  // }, [setJobs])
-
   const getJobs = useCallback(async () => {
     try {
       const { data } = await axios.get('/api/jobs/')
@@ -54,24 +41,22 @@ const UserProfile = () => {
     getUser()
   }, [])
 
-
   const userId = getUserId()
 
   const userJobs = jobs?.filter((job) => job.owner.id === userId)
 
-  const userAplications = jobs.filter(job => {
+  const userAplications = jobs?.filter(job => {
     return job.aplication.find((aplication) => aplication.owner === userId)
-  //          job.aplication.find((aplication) => aplication.owner === userId)
   })
-  // const apply = jobs.aplication.find((aplication) => aplication.owner === userId)
 
-  console.log('USER JOBS',userJobs)
 
   return (
     <div>
       {profile ? (
         <>
-          <img src={profile.profile_image} alt="Profile Image" />
+          <div className='image-section'>
+            <img className = 'profile-image' src={profile.profile_image} alt="Profile Image" />
+          </div>
           <h2>Welcome, {profile.first_name}</h2>
           <h3> Your Jobs: </h3>
           <div>
