@@ -21,7 +21,7 @@ const EditProfile = () => {
     password: '',
     password_confirmation: '',
     profile_image:
-      'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
+      'https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg',
   })
   const [errors, setErrors] = useState(({
     email: [],

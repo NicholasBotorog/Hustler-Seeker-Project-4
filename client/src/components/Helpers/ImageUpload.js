@@ -25,9 +25,9 @@ const ImageUpload = ({ formData, setFormData }) => {
         :
         <>
           <label htmlFor ='image' className="checkbox labl">Image Upload</label>
-          <input
+          <input 
             name='image'
-            className="input"
+            className="input-edit"
             type="file"
             onChange={handleImageUpload}
           />
