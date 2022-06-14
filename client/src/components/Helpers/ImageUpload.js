@@ -13,14 +13,14 @@ const ImageUpload = ({ formData, setFormData }) => {
     data.append('file', e.target.files[0])
     data.append('upload_preset', preset)
     const res = await axios.post(uploadURL, data)
-    setFormData({ ...formData, image: res.data.url })
+    setFormData({ ...formData, profile_image: res.data.url })
   }
 
   return (
     <>
       { FormData.profileImage ? 
         <div>
-          <img src={formData.image} alt='Image to upload' />
+          <img src={formData.profile_image} alt='Image to upload' />
         </div>
         :
         <>
