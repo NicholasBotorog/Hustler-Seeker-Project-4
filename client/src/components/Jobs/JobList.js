@@ -48,7 +48,7 @@ const JobList = ({ job }) => {
             <hr />
             { userIsOwner(job.owner.id) && (
               <div className="owner-buttons mb-4">
-                <Button variant="danger" onClick={handleDelete}>Delete Post</Button>
+                <Button variant="danger" onClick={() => handleDelete(job.id)}>Delete Post</Button>
                 <Link className='btn btn-primary' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
               </div>
             )}
