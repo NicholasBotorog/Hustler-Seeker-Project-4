@@ -74,18 +74,19 @@ const UserProfile = () => {
                 ))}
               </div>
               :
-              <>
-                <p className="p-4">Oh no, looks like you haven&apos;t posted any jobs yet! Why not posting one today ? It is free 😉</p>
-                <a href="/post">
+              
+              <div className='free'>
+                <p style={{ marginTop: '10px', marginBottom: '25px' }}>Oh no, looks like you haven&apos;t posted any jobs yet! Why not posting one today ? It is free 😉</p>
+                <a style={{ marginBottom: '10px' }}href="/post">
                   <Button className="font-bold py-2 px-4 button-profile"> Post </Button>
                 </a>
-              </>
+              </div>
             }
           </div>
 
           <Container className='aplications '>
             <hr />
-            <div className='image-section'>
+            <div className='image-section-2'>
               <h3>Jobs You have Applied For :</h3>
               <Link to="/jobs" className='btn btn-light'>View All Jobs</Link>
             </div>

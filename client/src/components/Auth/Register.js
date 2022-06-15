@@ -94,7 +94,7 @@ const Register = () => {
 
             <div className="field">
               <ImageUpload
-                value= {formData.image} onChange={handleChange}
+                value= {formData.profile_image} onChange={handleChange}
                 setFormData={setFormData}
               />
             </div>

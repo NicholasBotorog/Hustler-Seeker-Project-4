@@ -162,14 +162,32 @@ const Jobs = () => {
     //   }
     // </Container>
     <>
-      <Container className='search-section'>
+      <Container className='header'>
+        <div className='header-img'>
+          <Card className='job-hero'>
+            <Card.Img src="https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg" />
+            <Card.ImgOverlay>
+              <Container className='search-section' style ={{ marginTop: '320px' }}>
+                <Form className='search-field'>
+                  <Form.Group >
+                    <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+                  </Form.Group>
+                </Form>
+              </Container>
+            </Card.ImgOverlay>
+          </Card>
+        </div>
+      </Container>
+
+      {/* <Container className='search-section'>
         <Form className='search-field'>
           <Form.Group >
             <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
           </Form.Group>
         </Form>
-      </Container>
+      </Container> */}
       
+
       <Container className='mt-2'>
         {filteredJobs
           .slice(0, page * jobsPerPage).map(job => {

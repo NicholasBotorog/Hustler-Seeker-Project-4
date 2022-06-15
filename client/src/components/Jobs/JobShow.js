@@ -23,78 +23,9 @@ export default function Job({ job }) {
 
   today = mm + '/' + dd + '/' + yyyy
 
-  //!
-  const getSingleJob = useCallback(async () => {
-    try {
-      const { data } = await axios.get(`/api/jobs/${id}/`)
-      setSingleJob(data)
-      console.log(data)
-    } catch (error) {
-      setErrors(true)
-    }
-  }, [id])
-
-  useEffect(() => {
-    getSingleJob()
-  }, [getSingleJob])
-
-  const handleDelete = async () => { 
-    try {
-      await axios.delete(`/api/jobs/${id}`, {
-        headers: {
-          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-        },
-      })
-      navigate('/jobs/')
-    } catch (error) { 
-      console.log(error)
-    }
-  }
-
-  const handleApply = async () => { 
-    try { 
-      await axios.post('/api/aplication/', {
-        job: job.id,
-        applied: true,
-      },
-      {
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
-      }
-      )
-      await getSingleJob()
-    } catch (error) { 
-      console.log(error)
-    }
-  }
-
-  const handleDeleteAplication = async(aplicationId) => {
-    try {
-      await axios.delete(`/api/aplication/${aplicationId}/`, {
-        headers: { Authorization: `Bearer ${getTokenFromLocalStorage()}` },
-      })
-      await getSingleJob()
-    } catch (error) {
-      console.log(error)
-    }
-  } 
-
-  const userId = getUserId()
-  const apply = job && job.aplication.find((aplication) => aplication.owner === userId)
-  const userAplication = userId && !!apply
-
-  const [tags, setTags] = useState([])
-  useEffect( () => { 
-    const getTags = async () => { 
-      const { data } = await axios.get('/api/tags/')
-      setTags(data)
-    }
-    getTags()
-  }, [])
-  //! 
-
   return (
     <Col className='job-col'>
-      <Card className="mb-3">
+      <Card className="mb-3 ">
         <Card.Body>
           <div className="d-flex justify-content-between">
             <div>
@@ -113,12 +44,12 @@ export default function Job({ job }) {
               {/* <span className = "badge bg-secondary">{job.salary}</span> */}
               <span className = "badge bg-secondary">{job.job_location}</span>
               <div style={{ wordBreak: 'break-all', marginTop: '10px' }}>
-                <span>https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be</span>
+                <a href='https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be' target='_blank' rel="noreferrer">https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be</a>
               </div>
             </div>
             <img className="d-none d-md-block" height="50" alt={job.company} src='https://www.nms-mr.com/wp-content/uploads//2017/10/Mercedes-Benz-logo-2011-1920x1080.png' />
           </div>
-          <Card.Text className='mt-4'>
+          <Card.Text className='mt-3'>
             <Button
               onClick={() => setOpen(prevOpen => !prevOpen)}
               variant="primary"
@@ -129,21 +60,10 @@ export default function Job({ job }) {
           <Collapse in={open}>
             <div className="mt-4">
               <p>{job.description}</p>
-              { userAplication ? (
-                <Button className="ml-3" variant="danger" onClick={() => handleDeleteAplication(apply.id)}>
-                    Unapply
-                </Button>
-              ) :
-                (
-                  <Button className="ml-3" variant="success" onClick={handleApply}>
-                    Apply 
-                  </Button>
-                )
-              }
+              <Link className='btn btn-light' style={{ marginBottom: '5px', marginTop: '10px' }} to={`/jobs/${job.id}/`}>I am Interested!</Link>
               {userIsOwner(job.owner.id) && (
                 <div className="owner-buttons mb-4">
-                  <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
-                  <Link className='btn btn-light ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
+                  <Link className='btn btn-light' style={{ marginBottom: '5px', marginTop: '5px' }} to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
                 </div>
               )}
             </div>

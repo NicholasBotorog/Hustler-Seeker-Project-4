@@ -118,7 +118,13 @@ body {
     margin: 30px;
   }
 }
-
+.image-section-2{ 
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
 .user-jobs{
   display: flex;
   justify-content: center;
@@ -179,4 +185,46 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.single-job-buttons{
+  // height: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.job-col-single{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .single-job-view{
+    width: calc(100% / 2);
+    // height: 100vh;
+  }
+}
+.button-single{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.free{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.header{
+  margin-top: 50px;
+}
+.job-hero {
+  // border-radius: 30px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  .card-img {
+    height: 50vh;
+    object-fit: cover;
+    filter: brightness(70%);
+  }
 }
