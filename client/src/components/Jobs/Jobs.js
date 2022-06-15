@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useParams, Link } from 'react-router-dom'
 import Select from 'react-select'
+import JobsIndeed from './JobShow'
 
 // import { Container, Row, Col,Form, FormControl, Spinner
 //   Card, 
@@ -126,69 +127,106 @@ const Jobs = () => {
     })
   }
 
-  return (
-    <Container className='mt-4'>
-      {jobs && !errors && (
-        <>
-          <>
-            <h1>Our jobs:</h1>
-            <Container className='search-section'>
-              <div className='search-dropdown'>
-                <label className="p-1">Location</label>
-                <Select
-                  options={locationSelectOption}
-                  // components = {animatedComponents}
-                  isMulti
-                  onChange={handleLocationSelect}
-                  value={location.map(item => ({
-                    label: item[0] + item.substring(1),
-                    value: item,
-                  }))} />
-              </div>
+  const [params, setParams] = useState({})
+  function handleParamChange(e) {
+    const param = e.target.name
+    const value = e.target.value
+    setPage(1)
+    setParams(prevParams => {
+      return { ...prevParams, [param]: value }
+    })
+  }
 
-              <Form className='search-field'>
-                <Form.Group >
-                  <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
-                </Form.Group>
-              </Form>
-            </Container>
-          </>
-          <Container className='mt-5 jobs-main'>
-            <Row>
-              {filteredJobs
-                .slice(0, page * jobsPerPage)
-                .map((job) => {
-                  return (
-                    <>
-                      <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}/`}>
-                        <Col md='6' lg='4' className='job-list mb-4' >
-                          <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
-                            <Card.Header>{job.company}</Card.Header>
-                            <Card.Body>
-                              <Card.Title>
-                                {job.title}
-                              </Card.Title>
-                              <Card.Text>{job.description}</Card.Text>
-                            </Card.Body>
-                          </Card>
-                        </Col>
-                      </Link>
-                    </>
-                  )
-                })}
-            </Row>
-          </Container>
-          <div>
-            {page < totalPages && (
-              <Button onClick={() => setPage(page + 1)}>
-                Load more ..
-              </Button>
-            )}
-          </div>
-        </>
-      )
-      }
-    </Container>
+  return (
+  // <Container className='mt-4'>
+  //   {jobs && !errors && (
+  //     <>
+  //       <>
+  //         <h1>Our jobs:</h1>
+  //         <Container className='search-section'>
+  //           <div className='search-dropdown'>
+  //             <label className="p-1">Location</label>
+  //             <Select
+  //               options={locationSelectOption}
+  //               // components = {animatedComponents}
+  //               isMulti
+  //               onChange={handleLocationSelect}
+  //               value={location.map(item => ({
+  //                 label: item[0] + item.substring(1),
+  //                 value: item,
+  //               }))} />
+  //           </div>
+
+    //           <Form className='search-field'>
+    //             <Form.Group >
+    //               <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+    //             </Form.Group>
+    //           </Form>
+    //         </Container>
+    //       </>
+    //       <Container className='mt-5 jobs-main'
+    //         // style={{ width: 'calc((100% / 2) ' }}
+    //       >
+    //         <Row style={{ width: '30px' }}>
+    //           {filteredJobs
+    //             .slice(0, page * jobsPerPage)
+    //             .map((job) => {
+    //               return (
+    //                 <>
+    //                   <div className='job-show'>
+    //                     <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}/`}>
+    //                       <Col md='6'  xs='12' className='job-list mb-4' >
+    //                         <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
+    //                           <Card.Header>{job.company}</Card.Header>
+    //                           <Card.Body>
+    //                             <Card.Title>
+    //                               {job.title}
+    //                             </Card.Title>
+    //                             <Card.Text>{job.description}</Card.Text>
+    //                           </Card.Body>
+    //                         </Card>
+    //                       </Col>
+    //                     </Link>
+    //                   </div>
+    //                 </>
+    //               )
+    //             })}
+    //         </Row>
+    //       </Container>
+    //       <div>
+    //         {page < totalPages && (
+    //           <Button onClick={() => setPage(page + 1)}>
+    //             Load more ..
+    //           </Button>
+    //         )}
+    //       </div>
+    //     </>
+    //   )
+    //   }
+    // </Container>
+    <>
+      <Container className='search-section'>
+        <Form className='search-field'>
+          <Form.Group >
+            <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+          </Form.Group>
+        </Form>
+      </Container>
+      
+      <Container className='mt-2'>
+        {filteredJobs
+          .slice(0, page * jobsPerPage).map(job => {
+            return <JobsIndeed key={job.id} job={job} />
+          })}
+        <div className='loading-button'>
+          {page < totalPages && (
+            <Button variant='secondary' className='mb-5' onClick={() => setPage(page + 1)}>
+                Load more ...
+            </Button>
+          )}
+        </div>
+      </Container>
+    </>
   )
 }
 

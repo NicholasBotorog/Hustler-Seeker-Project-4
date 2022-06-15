@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
 
-import { Row, Col, Button, Card, Container } from 'react-bootstrap'
+import { Row, Col, Button, Card, Container, Carousel, CarouselItem } from 'react-bootstrap'
 
 import { userIsOwner } from '../Helpers/auth'
 

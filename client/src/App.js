@@ -9,7 +9,7 @@ import { Box, createTheme, Stack, ThemeProvider } from '@mui/material'
 // import Navbar from './components/Navbar'
 // import Add from './components/Add'
 
-
+import './styles/main.scss'
 import Jobs from './components/Jobs/Jobs'
 import PageNavbar from './components/Common/Navbar'
 import Register from './components/Auth/Register'

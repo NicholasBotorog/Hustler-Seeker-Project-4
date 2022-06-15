@@ -101,28 +101,33 @@ const SingleJob = () => {
                   </ul>
                 ))}
               </div>
-              <hr />
-              <div>
-                { userAplication ? (
-                  <Button className="ml-3" variant="danger" onClick={() => handleDeleteAplication(apply.id)}>
-                    Unapply
-                  </Button>
-                ) :
-                  (
-                    <Button className="ml-3" variant="success" onClick={handleApply}>
-                    Apply 
-                    </Button>
-                  )
-                }
-              </div>
-              {userIsOwner(job.owner.id) && (
-                <div className="owner-buttons mb-4">
-                  <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
-                  <Link className='btn btn-primary ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
-                </div>
-              )}
-              <Link to="/jobs" className='btn btn-secondary'>Back to Jobs</Link>
             </Col>
+            {/* <div className='job-header'>
+              <h1>{job.company}</h1>
+
+            </div>
+             */}
+            <hr />
+            <div>
+              <Link to="/jobs" className='btn btn-secondary'>Back to Jobs</Link>
+              { userAplication ? (
+                <Button className="ml-3" variant="danger" onClick={() => handleDeleteAplication(apply.id)}>
+                    Unapply
+                </Button>
+              ) :
+                (
+                  <Button className="ml-3" variant="success" onClick={handleApply}>
+                    Apply 
+                  </Button>
+                )
+              }
+            </div>
+            {userIsOwner(job.owner.id) && (
+              <div className="owner-buttons mb-4">
+                <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
+                <Link className='btn btn-primary ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
+              </div>
+            )}
           </>
           :
           <h2 className='text-center'>

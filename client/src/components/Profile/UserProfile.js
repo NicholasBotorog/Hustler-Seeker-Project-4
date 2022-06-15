@@ -83,8 +83,8 @@ const UserProfile = () => {
             }
           </div>
 
-          <hr />
-          <Container className='aplications'>
+          <Container className='aplications '>
+            <hr />
             <div className='image-section'>
               <h3>Jobs You have Applied For :</h3>
               <Link to="/jobs" className='btn btn-light'>View All Jobs</Link>
