@@ -26,6 +26,7 @@ body {
 }
 .input {
   display: block;
+  // display: none;
   width: 100%;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
@@ -45,12 +46,6 @@ body {
   border-radius: 70px;
 }
 
-.profile-image{
-  width: 200px;
-  height: 200px;
-  border-radius: 70px;
-  margin: 30px;
-}
 
 .input-edit{
   margin-top: 7px;
@@ -120,4 +115,51 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.image-section { 
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+  .profile-image{
+    width: 200px;
+    height: 200px;
+    border-radius: 50px;
+    margin: 30px;
+  }
+}
+
+.user-jobs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .user-jobs-list{
+    display: inline-flex;
+  }
+}
+
+.user-aplications{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .user-aplications-jobs{
+    display: inline-flex
+  }
+}
+.profile-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100px;
+}
+.job-card{
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
 }

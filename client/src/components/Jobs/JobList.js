@@ -7,7 +7,9 @@ import { Row, Col, Button, Card, Container } from 'react-bootstrap'
 
 import { userIsOwner } from '../Helpers/auth'
 
+
 const JobList = ({ job }) => { 
+
   const handleDelete = async (id) => { 
     try {
       await axios.delete(`/api/jobs/${id}/`, {
@@ -21,28 +23,28 @@ const JobList = ({ job }) => {
 
   return (
     <Container className="mt-4 job-user">
-
-      <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}`} >
-        <Col className='job-list'>
-          <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
-            <Card.Header>{job.company}</Card.Header>
-            <Card.Body>
-              <Card.Title>
-                {job.title}
-              </Card.Title>
-              <Card.Text>{job.description}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Link>
+      <Row>
+        <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}`} >
+          <Col className='job-list'>
+            <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2 job-card'>
+              <Card.Header>{job.company}</Card.Header>
+              <Card.Body>
+                <Card.Title>
+                  {job.title}
+                </Card.Title>
+                <Card.Text>{job.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Link>
+      </Row>
 
       { userIsOwner(job.owner.id) && (
         <div className="owner-buttons mb-4">
-          <Button variant="danger" onClick={() => handleDelete(job.id)}>Delete Post</Button>
-          <Link className='btn btn-primary' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
+          <Button variant="light"  onClick={() => handleDelete(job.id)} style={{ fontWeight: 'bold' }}>Delete Post</Button>
+          <Link className='btn btn-light' style={{ marginLeft: '10px', fontWeight: 'bold' }} to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
         </div>
       )}
-      <Link to="/jobs" className='btn btn-warning'>All Jobs</Link>
     </Container>
   )
 }

@@ -161,7 +161,7 @@ const Jobs = () => {
                   return (
                     <>
                       <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}/`}>
-                        <Col className='job-list'>
+                        <Col md='6' lg='4' className='job-list mb-4' >
                           <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
                             <Card.Header>{job.company}</Card.Header>
                             <Card.Body>

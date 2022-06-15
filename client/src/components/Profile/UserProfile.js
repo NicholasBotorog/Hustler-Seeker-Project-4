@@ -6,20 +6,7 @@ import SingleJob from '../Jobs/SingleJob'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-// !
-import { ThemeProvider } from '@material-ui/core'
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-// import EditSharpIcon from '@material-ui/icons/EditSharp'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import {
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  CardActions
-} from '@material-ui/core'
-
+import { Button, Row, Col, Container } from 'react-bootstrap'
 
 
 const UserProfile = () => { 
@@ -68,17 +55,20 @@ const UserProfile = () => {
 
 
   return (
-    <div>
+    <div >
       {profile ? (
         <>
           <div className='image-section'>
-            <img className = 'profile-image' src={profile.profile_image} alt="Profile Image" />
+            <h1>Welcome, {profile.first_name}</h1>
+            <Link className='btn btn-light mb-4' to={'/profile/edit/'}>
+              <img className = 'profile-image' src={profile.profile_image} alt="Profile Image" />
+            </Link>
+            <h2> Your Jobs: </h2>
           </div>
-          <h2>Welcome, {profile.first_name}</h2>
-          <h3> Your Jobs: </h3>
-          <div>
+
+          <div className='user-jobs'>
             {userJobs.length > 0 ?
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+              <div className="user-jobs-list">
                 {userJobs.map((job) => (
                   <JobList key={job._id} job={job} />
                 ))}
@@ -87,21 +77,27 @@ const UserProfile = () => {
               <>
                 <p className="p-4">Oh no, looks like you haven&apos;t posted any jobs yet! Why not posting one today ? It is free 😉</p>
                 <a href="/post">
-                  <button className="font-bold py-2 px-4 m-3 rounded"> Post </button>
+                  <Button className="font-bold py-2 px-4 button-profile"> Post </Button>
                 </a>
               </>
             }
           </div>
-          <hr />
-          <h3>Jobs You have Applied For :</h3>
-          {/* {userAplications.lenght > 0 ?  */}
-          <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
-            {userAplications.map((job) => (
 
-              <JobList key={job._id} job={job} />
-              
-            ))}
-          </div>
+          <hr />
+          <Container className='aplications'>
+            <div className='image-section'>
+              <h3>Jobs You have Applied For :</h3>
+              <Link to="/jobs" className='btn btn-light'>View All Jobs</Link>
+            </div>
+            <div className='user-aplications'>
+              {/* {userAplications.lenght > 0 ?  */}
+              <div className='user-aplications-jobs'>
+                {userAplications.map((job) => (
+                  <JobList key={job._id} job={job} />
+                ))}
+              </div>
+            </div>
+          </Container>
           {/* :  */}
           {/* <>
               <p className="p-4">Oh no, looks like you haven&apos;t checked our husle section yet. Go get that mula Champ 🤑</p>
@@ -110,13 +106,15 @@ const UserProfile = () => {
               </a>
             </>
           }  */}
-          <>
-            <Link className='btn btn-primary ml-3' to={'/profile/edit/'}>Edit Profile</Link>
-          </>
         </>
       ) : (
         <>
-          {profileErrors ? <h2>Oops something went wrong.</h2> : <h2>Loading...</h2>}
+          <Container className='image-section'>
+            {profileErrors ?
+              <><h2>Oops something went wrong.</h2><img src='https://miro.medium.com/max/600/1*70dNCfAHhxBAhLBe8N-cng.gif' /></>
+              :
+              <h2>Loading...</h2>}
+          </Container>
         </>
       )}
     </div>

@@ -76,8 +76,6 @@ const SingleJob = () => {
   const apply = job && job.aplication.find((aplication) => aplication.owner === userId)
   const userAplication = userId && !!apply
 
-  console.log('USER IS APLLYING', userAplication)
-
   return (
     <Container className="mt-4">
       <Row>
@@ -95,6 +93,14 @@ const SingleJob = () => {
               <p>{job.job_location}</p>
               <hr />
               <p>{job.salary}</p>
+              <hr />
+              <div>
+                {job.tags.map((tag) => (
+                  <ul key={tag.name}>
+                    {tag.name}
+                  </ul>
+                ))}
+              </div>
               <hr />
               <div>
                 { userAplication ? (
@@ -115,13 +121,6 @@ const SingleJob = () => {
                   <Link className='btn btn-primary ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
                 </div>
               )}
-              <div>
-                {job.tags.map((tag) => (
-                  <ul key={tag.name}>
-                    {tag.name}
-                  </ul>
-                ))}
-              </div>
               <Link to="/jobs" className='btn btn-secondary'>Back to Jobs</Link>
             </Col>
           </>
