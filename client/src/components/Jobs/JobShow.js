@@ -4,11 +4,17 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Card, Badge, Button, Collapse, Col } from 'react-bootstrap'
 import { getUserId, userIsOwner } from '../Helpers/auth'
 import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
-import ReactMarkdown from 'react-markdown'
+
 
 
 export default function Job({ job }) {
+
   const [open, setOpen] = useState(false)
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  const [singleJob, setSingleJob] = useState(null)
+  const [errors, setErrors] = useState(false)
 
   let today = new Date()
   const dd = String(today.getDate()).padStart(2, '0')
@@ -18,12 +24,6 @@ export default function Job({ job }) {
   today = mm + '/' + dd + '/' + yyyy
 
   //!
-  const { id } = useParams()
-  const navigate = useNavigate()
-
-  const [singleJob, setSingleJob] = useState(null)
-  const [errors, setErrors] = useState(false)
-
   const getSingleJob = useCallback(async () => {
     try {
       const { data } = await axios.get(`/api/jobs/${id}/`)
@@ -36,7 +36,7 @@ export default function Job({ job }) {
 
   useEffect(() => {
     getSingleJob()
-  }, [])
+  }, [getSingleJob])
 
   const handleDelete = async () => { 
     try {
@@ -82,6 +82,14 @@ export default function Job({ job }) {
   const apply = job && job.aplication.find((aplication) => aplication.owner === userId)
   const userAplication = userId && !!apply
 
+  const [tags, setTags] = useState([])
+  useEffect( () => { 
+    const getTags = async () => { 
+      const { data } = await axios.get('/api/tags/')
+      setTags(data)
+    }
+    getTags()
+  }, [])
   //! 
 
   return (
@@ -95,14 +103,16 @@ export default function Job({ job }) {
               </Card.Title>
               <Card.Subtitle className="text-muted mb-2">
                 {/* {new Date(job.created_at).toLocaleDateString()} */}
-                {/* <h5> Aici va veni data </h5> */}
                 {today}
               </Card.Subtitle>
-              {/* <Badge variant="secondary" className="mr-2">{job.type}</Badge> */}
-              <span className = "badge bg-secondary">{job.salary}</span>
-              <span className = "badge bg-secondary" style= {{ marginLeft: '10px' }}>{job.job_location}</span>
+              {job.tags.map((tag) => (
+                <span className ="badge bg-secondary" style={{ marginRight: '10px' }} key={tag.name}>
+                  {tag.name}
+                </span>
+              ))}
+              {/* <span className = "badge bg-secondary">{job.salary}</span> */}
+              <span className = "badge bg-secondary">{job.job_location}</span>
               <div style={{ wordBreak: 'break-all', marginTop: '10px' }}>
-                <ReactMarkdown source='https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be' />
                 <span>https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be</span>
               </div>
             </div>
@@ -133,7 +143,7 @@ export default function Job({ job }) {
               {userIsOwner(job.owner.id) && (
                 <div className="owner-buttons mb-4">
                   <Button className="ml-3" variant="danger" onClick={handleDelete}>Delete Post</Button>
-                  <Link className='btn btn-primary ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
+                  <Link className='btn btn-light ml-3' to={`/jobs/${job.id}/edit/`}>Edit Post</Link>
                 </div>
               )}
             </div>

@@ -1,31 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { useParams, Link } from 'react-router-dom'
-import Select from 'react-select'
-import JobsIndeed from './JobShow'
-
-// import { Container, Row, Col,Form, FormControl, Spinner
-//   Card, 
-//  Button 
-// } from 'react-bootstrap'
-
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Row, Col, Button, Card, Container, Form, FormControl } from 'react-bootstrap'
-import JobList from './JobList'
-
-// !
-import { ThemeProvider } from '@material-ui/core'
-// import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-// import EditSharpIcon from '@material-ui/icons/EditSharp'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import {
-  Typography,
-  // Button,
-  // Card,
-  CardContent,
-  TextField,
-  CardActions
-} from '@material-ui/core'
+import Select from 'react-select'
+import Job from './JobShow'
 
 const Jobs = () => { 
 
@@ -33,7 +11,12 @@ const Jobs = () => {
 
   const { id } = useParams()
 
+  const [params, setParams] = useState({})
+
   const [ jobs, setJobs ] = useState([])
+  const [filteredJobs, setFilteredJobs] = useState([])
+  const [page, setPage] = useState(1)
+  const [tags, setTags] = useState([])
   const [jobsToShow, setJobsToShow] = useState([])
   const [errors, setErrors] = useState(false)
   const [filters, setFilters] = useState({
@@ -42,10 +25,7 @@ const Jobs = () => {
     tags: 'All',
     location: '',
   })
-  const [filteredJobs, setFilteredJobs] = useState([])
-  const [page, setPage] = useState(1)
 
-  const [tags, setTags] = useState([])
   const [location, setLocation] = useState([])
 
   useEffect(() => {
@@ -62,19 +42,6 @@ const Jobs = () => {
     }
     getData()
   }, [])
-
-  // useEffect(()=>{
-  //   if (jobs.length) { 
-  //     const regexSearch = new RegExp(filters.searchTerm, 'i')
-  //     const filtered = jobs
-  //       .filter((job) => {
-  //         return regexSearch.test(job.title) || regexSearch.test(job.company) || (filters.name === 'All') && (job.tag === filters.tags || filters.tags === 'All')
-  //       })
-  //     setFilteredJobs(filtered)
-  //   }
-  // }, [filters, jobs])
-
-  // filteredJobs.sort()
 
   const handleChange = (e) => { 
     setFilters({ ...filters, [e.target.name]: e.target.value })
@@ -103,7 +70,7 @@ const Jobs = () => {
       const regexSearch = new RegExp(filters.searchTerm, 'i')
       const filtered = jobs
         .filter((job) => {
-          return regexSearch.test(job.title) || regexSearch.test(job.company) || (filters.name === 'All') && (job.tags === filters.tags || filters.tags === 'All')
+          return regexSearch.test(job.title) || regexSearch.test(job.company)
         })
       setFilteredJobs(filtered)
     }
@@ -111,31 +78,21 @@ const Jobs = () => {
 
   filteredJobs.sort()
 
-  const locationSelectOption = [
-    { value: 'Baku', label: 'Baku' },
-    { valut: 'Bacau', label: 'Bacau' }
-  ]
+  // const locationSelectOption = [
+  //   { value: 'Baku', label: 'Baku' },
+  //   { valut: 'Bacau', label: 'Bacau' }
+  // ]
 
-  const handleLocationSelect = (selected) => { 
-    const selectedLocation = selected.map(item=>item.value)
-    setLocation(selectedLocation)
-  }
+  // const handleLocationSelect = (selected) => { 
+  //   const selectedLocation = selected.map(item=>item.value)
+  //   setLocation(selectedLocation)
+  // }
 
-  const JobFiltered2 = (jobs) => {
-    return jobs.filter(job => {
-      return (location.includes(job.job_location) || location.length === 0) 
-    })
-  }
-
-  const [params, setParams] = useState({})
-  function handleParamChange(e) {
-    const param = e.target.name
-    const value = e.target.value
-    setPage(1)
-    setParams(prevParams => {
-      return { ...prevParams, [param]: value }
-    })
-  }
+  // const JobFiltered2 = (jobs) => {
+  //   return jobs.filter(job => {
+  //     return (location.includes(job.job_location) || location.length === 0) 
+  //   })
+  // }
 
   return (
   // <Container className='mt-4'>
@@ -216,7 +173,7 @@ const Jobs = () => {
       <Container className='mt-2'>
         {filteredJobs
           .slice(0, page * jobsPerPage).map(job => {
-            return <JobsIndeed key={job.id} job={job} />
+            return <Job key={job.id} job={job} />
           })}
         <div className='loading-button'>
           {page < totalPages && (
@@ -231,75 +188,3 @@ const Jobs = () => {
 }
 
 export default Jobs
-
-// const Jobs = () => { 
-//   const [jobs, setJobs] = useState([])
-//   const [location, setLocation] = useState([])
-//   const [search, setSearch] = useState('')
-//   const [tags, setTags] = useState('all')
-//   const [error, setError] = useState(false)
-
-//   const [page, setPage] = useState(1)
-
-//   useEffect(() => { 
-//     const getData = async () => { 
-//       try {
-//         const { data } = await axios.get('/api/jobs/')
-//         setJobs(data)
-//       } catch (error) {
-//         setError(true)
-//       }
-//     }
-//     getData()
-//   }, [search, setJobs])
-
-//   const handleSearch = (e) =>{ 
-//     setSearch(e.target.value.toLowerCase())
-//     setPage(1)
-//   }
-
-//   const handleLocation = (e) => { 
-//     setLocation(e.target.value.toLowerCase())
-//     setPage(1)
-//   }
-
-//   const handleTags = (e) => { 
-//     setTags(e.target.value)
-//     setPage(1)
-//   }
-
-//   const filteredItems = jobs
-//     .filter((job) => !search || job.title.toLowerCase().includes(search))
-//     .filter((job) => !location || job.job_location.toLowerCase().includes(location))
-//     .
-
-//   const itemPerPage = 3
-//   const totalPages = Math.ceil(filteredItems.lenth / itemPerPage)
-
-//   return (
-//     <><>
-//       <input type='text' placeholder='Search Title' id='search-field' onChange={handleSearch} />
-//       <input type='text' placeholder='Location' id ='where-field' onChange={handleLocation} />
-//     </><ul>
-//       <li>
-//         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 bg-pawhub-yellow pt-10">
-//           {filteredItems
-//             .slice(0, page * itemPerPage)
-//             .map((job) => (
-//               <JobList key={job.id} job={job} />
-//             ))}
-//           <div>
-//             {page < totalPages && (
-//               <Button onClick={() => setPage(page + 1)}>
-//                   Load more ..
-//               </Button>
-//             )}
-//           </div>
-//         </div>
-//       </li>
-//     </ul></>
-//   )
-
-// }
-
-// export default Jobs

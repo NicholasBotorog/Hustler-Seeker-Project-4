@@ -102,11 +102,6 @@ const SingleJob = () => {
                 ))}
               </div>
             </Col>
-            {/* <div className='job-header'>
-              <h1>{job.company}</h1>
-
-            </div>
-             */}
             <hr />
             <div>
               <Link to="/jobs" className='btn btn-secondary'>Back to Jobs</Link>
