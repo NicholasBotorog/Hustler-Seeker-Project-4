@@ -79,7 +79,7 @@ const Jobs = () => {
       const regexSearch = new RegExp(filters.searchTerm, 'i')
       const filtered = jobs
         .filter((job) => {
-          return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')
+          return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')  && (job.tags.name === filters.tags || filters.tags === 'All') 
         })
         // regexSearch.test(job.title) || regexSearch.test(job.company)
         // ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')
@@ -98,7 +98,7 @@ const Jobs = () => {
           <Card.Body className='randomImg' style={{ backgroundImage: 'url(https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg)' }}>
             <Form className='search-field' style={{ marginTop: '200px' }}>
               <Form.Group style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
-                <FormControl style={{ marginRight: '20px' }} className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+                <FormControl style={{ marginRight: '10px', height: '43px', marginTop: '4px' }} className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
                 <Filters filters={filters} jobLocation={location} handleChange={handleChange} />
                 <SelectTags filters={filters} tags={tags} handleChange={handleChange} />
               </Form.Group>

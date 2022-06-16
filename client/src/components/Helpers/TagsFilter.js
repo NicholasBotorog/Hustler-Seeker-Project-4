@@ -37,12 +37,19 @@ export const SelectTags = ({ filters, tags, handleChange }) => {
 
   return (
     <>
+      {/* <>
       <Select
         name="tags" value={filters.tags} onChange={handleChange}
-        options={tags.map(tag=> <option key={tag} value={tag}>{tag}</option>)}
+        options={tags.map(tag => key={tag} value={tag}>{tag})}
         components={animatedComponents}
-        isMulti
-      />
+        isMulti />
+    </> */}
+      <div className="filter-container">
+        <select className = 'text-muted' style={{ border: '0 none', outline: '0 none', height: '43px', margin: '5px', padding: '0 1rem', borderRadius: '5px', textAlign: 'center' }} name="tags" value={filters.tags} onChange={handleChange}>
+          <option value="All">Industries</option>
+          {tags.map(tag => <option key={tag.name} value={tag.name}>{tag.name}</option>)}
+        </select>
+      </div>
     </>
   )
 }
