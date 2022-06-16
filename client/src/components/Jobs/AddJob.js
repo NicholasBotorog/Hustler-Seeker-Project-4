@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
-import CreatableSelect from 'react-select/creatable'
+
 
 const AddJob = () => { 
 

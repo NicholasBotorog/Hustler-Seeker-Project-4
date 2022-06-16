@@ -29,7 +29,7 @@ body {
   display: block;
   // display: none;
   width: 100%;
-  border: 1px solid rgba(0,0,0,0.2);
+  // border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
   margin-bottom: 10px;
   padding: 4px;
@@ -217,14 +217,26 @@ body {
 .header{
   margin-top: 50px;
 }
-.job-hero {
-  // border-radius: 30px;
-  overflow: hidden;
-  margin-bottom: 20px;
+// .job-hero {
+//   // border-radius: 30px;
+//   overflow: hidden;
+//   margin-bottom: 20px;
 
-  .card-img {
-    height: 50vh;
-    object-fit: cover;
-    filter: brightness(70%);
-  }
+//   .card-img {
+//     height: 50vh;
+//     object-fit: cover;
+//     filter: brightness(70%);
+//   }
+// }
+.randomImg {
+  border-radius: 30px;
+  height: 400px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  // filter: brightness(70%);
 }

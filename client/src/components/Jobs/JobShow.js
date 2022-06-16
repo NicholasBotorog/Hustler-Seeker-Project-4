@@ -13,9 +13,6 @@ export default function Job({ job }) {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const [singleJob, setSingleJob] = useState(null)
-  const [errors, setErrors] = useState(false)
-
   let today = new Date()
   const dd = String(today.getDate()).padStart(2, '0')
   const mm = String(today.getMonth() + 1).padStart(2, '0') 
@@ -41,7 +38,6 @@ export default function Job({ job }) {
                   {tag.name}
                 </span>
               ))}
-              {/* <span className = "badge bg-secondary">{job.salary}</span> */}
               <span className = "badge bg-secondary">{job.job_location}</span>
               <div style={{ wordBreak: 'break-all', marginTop: '10px' }}>
                 <a href='https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be' target='_blank' rel="noreferrer">https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be</a>

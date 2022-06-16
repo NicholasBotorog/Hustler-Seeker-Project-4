@@ -4,6 +4,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Row, Col, Button, Card, Container, Form, FormControl } from 'react-bootstrap'
 import Select from 'react-select'
 import Job from './JobShow'
+import Filters from '../Helpers/Filter'
+import SelectTags from '../Helpers/TagsFilter'
 
 const Jobs = () => { 
 
@@ -20,10 +22,9 @@ const Jobs = () => {
   const [jobsToShow, setJobsToShow] = useState([])
   const [errors, setErrors] = useState(false)
   const [filters, setFilters] = useState({
-    job: 'All',
     searchTerm: '',
     tags: 'All',
-    location: '',
+    location: 'All',
   })
 
   const [location, setLocation] = useState([])
@@ -34,7 +35,6 @@ const Jobs = () => {
         const { data } = await axios.get('/api/jobs/')
         console.log(data)
         setJobs(data)
-        setJobsToShow(data.slice(0, 2))
       } catch (error){
         console.log(error)
         setErrors(error)
@@ -45,6 +45,7 @@ const Jobs = () => {
 
   const handleChange = (e) => { 
     setFilters({ ...filters, [e.target.name]: e.target.value })
+    console.log(e.target.value)
   }
 
   const jobsPerPage = 3
@@ -61,121 +62,48 @@ const Jobs = () => {
   useEffect(() => { 
     if (tags.length) {
       const tagList = []
-      tags.forEach(tag => tagList.includes(tag.name) ? '' : tagList.push)
+      tags.forEach(tag => tagList.includes(tag) ? '' : tagList.push(tag))
     }
-  })
+  }, [tags])
+
+  useEffect(() => {
+    if (jobs.length) {
+      const locationList = []
+      jobs.forEach(job => locationList.includes(job.job_location) ? '' : locationList.push(job.job_location))
+      setLocation(locationList)
+    }
+  }, [jobs])
 
   useEffect(()=>{
     if (jobs.length) { 
       const regexSearch = new RegExp(filters.searchTerm, 'i')
       const filtered = jobs
         .filter((job) => {
-          return regexSearch.test(job.title) || regexSearch.test(job.company)
+          return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')
         })
+        // regexSearch.test(job.title) || regexSearch.test(job.company)
+        // ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')
       setFilteredJobs(filtered)
     }
   }, [filters, jobs])
 
   filteredJobs.sort()
 
-  // const locationSelectOption = [
-  //   { value: 'Baku', label: 'Baku' },
-  //   { valut: 'Bacau', label: 'Bacau' }
-  // ]
-
-  // const handleLocationSelect = (selected) => { 
-  //   const selectedLocation = selected.map(item=>item.value)
-  //   setLocation(selectedLocation)
-  // }
-
-  // const JobFiltered2 = (jobs) => {
-  //   return jobs.filter(job => {
-  //     return (location.includes(job.job_location) || location.length === 0) 
-  //   })
-  // }
 
   return (
-  // <Container className='mt-4'>
-  //   {jobs && !errors && (
-  //     <>
-  //       <>
-  //         <h1>Our jobs:</h1>
-  //         <Container className='search-section'>
-  //           <div className='search-dropdown'>
-  //             <label className="p-1">Location</label>
-  //             <Select
-  //               options={locationSelectOption}
-  //               // components = {animatedComponents}
-  //               isMulti
-  //               onChange={handleLocationSelect}
-  //               value={location.map(item => ({
-  //                 label: item[0] + item.substring(1),
-  //                 value: item,
-  //               }))} />
-  //           </div>
-
-    //           <Form className='search-field'>
-    //             <Form.Group >
-    //               <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
-    //             </Form.Group>
-    //           </Form>
-    //         </Container>
-    //       </>
-    //       <Container className='mt-5 jobs-main'
-    //         // style={{ width: 'calc((100% / 2) ' }}
-    //       >
-    //         <Row style={{ width: '30px' }}>
-    //           {filteredJobs
-    //             .slice(0, page * jobsPerPage)
-    //             .map((job) => {
-    //               return (
-    //                 <>
-    //                   <div className='job-show'>
-    //                     <Link style={{ color: 'inherit', textDecoration: 'inherit' }} to={`/jobs/${job.id}/`}>
-    //                       <Col md='6'  xs='12' className='job-list mb-4' >
-    //                         <Card bg='dark' text='light' style={{ width: '18rem' }} className='mb-2'>
-    //                           <Card.Header>{job.company}</Card.Header>
-    //                           <Card.Body>
-    //                             <Card.Title>
-    //                               {job.title}
-    //                             </Card.Title>
-    //                             <Card.Text>{job.description}</Card.Text>
-    //                           </Card.Body>
-    //                         </Card>
-    //                       </Col>
-    //                     </Link>
-    //                   </div>
-    //                 </>
-    //               )
-    //             })}
-    //         </Row>
-    //       </Container>
-    //       <div>
-    //         {page < totalPages && (
-    //           <Button onClick={() => setPage(page + 1)}>
-    //             Load more ..
-    //           </Button>
-    //         )}
-    //       </div>
-    //     </>
-    //   )
-    //   }
-    // </Container>
+  
     <>
       <Container className='header'>
         <div className='header-img'>
-          <Card className='job-hero'>
-            <Card.Img src="https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg" />
-            <Card.ImgOverlay>
-              <Container className='search-section' style ={{ marginTop: '320px' }}>
-                <Form className='search-field'>
-                  <Form.Group >
-                    <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
-                  </Form.Group>
-                </Form>
-              </Container>
-            </Card.ImgOverlay>
-          </Card>
+          <Card.Body className='randomImg' style={{ backgroundImage: 'url(https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg)' }}>
+            <Form className='search-field' style={{ marginTop: '200px' }}>
+              <Form.Group style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
+                <FormControl style={{ marginRight: '20px' }} className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
+                <Filters filters={filters} jobLocation={location} handleChange={handleChange} />
+                <SelectTags filters={filters} tags={tags} handleChange={handleChange} />
+              </Form.Group>
+            </Form>
+          </Card.Body>
         </div>
       </Container>
 
