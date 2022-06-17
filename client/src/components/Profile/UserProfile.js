@@ -62,6 +62,7 @@ const UserProfile = () => {
             <h1>Welcome, {profile.first_name}</h1><Link className='btn btn-light mb-4' to={'/profile/edit/'}>
               <img className='profile-image' src={profile.profile_image} alt="Profile Image" />
             </Link>
+            <a href={profile.website}>My Portfolio</a>
           </div>
         )
           :
@@ -77,7 +78,7 @@ const UserProfile = () => {
           )}
       </div>
 
-      <Container>
+      <Container className='mt-4'>
         <h2 className='h2-profile'> Your Jobs: </h2>
         {userJobs.length > 0 ?
           <Row style={{ display: 'flex', justifyContent: 'center' }} >

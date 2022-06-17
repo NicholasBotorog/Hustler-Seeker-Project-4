@@ -2,32 +2,26 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { Row, Col, Button, Card, Container, Form, FormControl } from 'react-bootstrap'
-import Select from 'react-select'
 import Job from './JobShow'
 import Filters from '../Helpers/Filter'
-import SelectTags from '../Helpers/TagsFilter'
+import FiltersCompany from '../Helpers/TagsFilter'
 
 const Jobs = () => { 
-
-  const navigate = useNavigate()
-
-  const { id } = useParams()
-
-  const [params, setParams] = useState({})
 
   const [ jobs, setJobs ] = useState([])
   const [filteredJobs, setFilteredJobs] = useState([])
   const [page, setPage] = useState(1)
-  const [tags, setTags] = useState([])
-  const [jobsToShow, setJobsToShow] = useState([])
+  // const [tags, setTags] = useState([])
   const [errors, setErrors] = useState(false)
   const [filters, setFilters] = useState({
     searchTerm: '',
     tags: 'All',
     location: 'All',
+    companies: 'All',
   })
 
   const [location, setLocation] = useState([])
+  const [companies, setCompanies] = useState([])
 
   useEffect(() => {
     const getData = async () => {
@@ -45,26 +39,26 @@ const Jobs = () => {
 
   const handleChange = (e) => { 
     setFilters({ ...filters, [e.target.name]: e.target.value })
-    console.log(e.target.value)
+    // console.log(e.target.value)
   }
 
   const jobsPerPage = 3
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage)
 
-  useEffect( () => { 
-    const getTags = async () => { 
-      const { data } = await axios.get('/api/tags/')
-      setTags(data)
-    }
-    getTags()
-  }, [])
+  // useEffect( () => { 
+  //   const getTags = async () => { 
+  //     const { data } = await axios.get('/api/tags/')
+  //     setTags(data)
+  //   }
+  //   getTags()
+  // }, [])
 
-  useEffect(() => { 
-    if (tags.length) {
-      const tagList = []
-      tags.forEach(tag => tagList.includes(tag) ? '' : tagList.push(tag))
-    }
-  }, [tags])
+  // useEffect(() => { 
+  //   if (tags.length) {
+  //     const tagList = []
+  //     tags.forEach(tag => tagList.includes(tag) ? '' : tagList.push(tag))
+  //   }
+  // }, [tags])
 
   useEffect(() => {
     if (jobs.length) {
@@ -74,12 +68,20 @@ const Jobs = () => {
     }
   }, [jobs])
 
+  useEffect(() => {
+    if (jobs.length) {
+      const companiesList = []
+      jobs.forEach(job => companiesList.includes(job.company) ? '' : companiesList.push(job.company))
+      setCompanies(companiesList)
+    }
+  }, [jobs])
+
   useEffect(()=>{
     if (jobs.length) { 
       const regexSearch = new RegExp(filters.searchTerm, 'i')
       const filtered = jobs
         .filter((job) => {
-          return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')  && (job.tags.name === filters.tags || filters.tags === 'All') 
+          return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All') && (job.company === filters.companies || filters.companies === 'All' )
         })
       setFilteredJobs(filtered)
     }
@@ -89,7 +91,6 @@ const Jobs = () => {
 
 
   return (
-  
     <>
       <Container className='header'>
         <div className='header-img'>
@@ -98,21 +99,12 @@ const Jobs = () => {
               <Form.Group style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
                 <FormControl style={{ marginRight: '10px', height: '43px', marginTop: '4px' }} className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
                 <Filters filters={filters} jobLocation={location} handleChange={handleChange} />
-                <SelectTags filters={filters} tags={tags} handleChange={handleChange} />
+                {/* <FiltersCompany filters={filters} companies={companies} handleChange={handleChange} /> */}
               </Form.Group>
             </Form>
           </Card.Body>
         </div>
       </Container>
-
-      {/* <Container className='search-section'>
-        <Form className='search-field'>
-          <Form.Group >
-            <FormControl className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
-          </Form.Group>
-        </Form>
-      </Container> */}
-      
 
       <Container className='mt-2'>
         {filteredJobs

@@ -11,12 +11,15 @@ body {
   min-height: 100vh;
 }
 
-
+.input-1{
+  display: block;
+  border: none;
+}
 
 .form-page{
   padding-top: 50px;
   flex-grow: 1;
-  background-color: grey;
+  background-color: white;
 
   form {
     border-radius: 8px;
@@ -27,7 +30,6 @@ body {
 }
 .input {
   display: block;
-  // display: none;
   width: 100%;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
@@ -40,7 +42,6 @@ body {
   height: 25px;
   border-radius: 70px;
 }
-
 
 .input-edit{
   margin-top: 7px;
@@ -56,54 +57,15 @@ body {
   text-decoration: none;
 }
 
-.job-list{
-  transition: transform .5s;
-  >a{
-    text-decoration: none;
-  }
-  .card{
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-  }
-  :hover{
-    transform: scale(1.03);
-    overflow: hidden;
-  }
-}
-
-.search-section{
-  // padding: 30px;
-  margin: 40px 0 60px;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  // flex-direction: column;
-  align-items: stretch;
-  // align-items: center;
-
   .search-field {
     max-width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // padding: 0 10px 0 15px;
     font-size: 15px;
     margin: 5px;
-  
-    .search-bar {
-      // width: 40%;
-      margin-top: 20px;
-      text-align: center;
-    }
   }
-  .search-dropdown{
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-}
 
 .image-section { 
   display: flex;
@@ -146,6 +108,7 @@ body {
     display: inline-flex
   }
 }
+
 .profile-button{
   display: flex;
   align-items: center;
@@ -153,21 +116,8 @@ body {
   max-width: 100px;
 }
 .job-card{
-  // width: 200px;
-  // height: 200px;
   overflow: hidden;
 }
-
-
-.jobs-main{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  .job-show{
-    width: 50px;
-  }
-}
-
 
 .card{
   box-shadow: 0px 2px 8px rgba(0,0,0,0.4);
@@ -187,7 +137,6 @@ body {
   align-items: center;
 }
 .single-job-buttons{
-  // height: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -199,7 +148,6 @@ body {
   align-items: center;
   .single-job-view{
     width: calc(100% / 2);
-    // height: 100vh;
   }
 }
 .button-single{
@@ -217,17 +165,7 @@ body {
 .header{
   margin-top: 50px;
 }
-// .job-hero {
-//   // border-radius: 30px;
-//   overflow: hidden;
-//   margin-bottom: 20px;
 
-//   .card-img {
-//     height: 50vh;
-//     object-fit: cover;
-//     filter: brightness(70%);
-//   }
-// }
 .job-main-header {
   border-radius: 30px;
   height: 400px;
@@ -240,10 +178,23 @@ body {
   background-position: center;
   // filter: brightness(70%);
 }
-.single-job-buttons-review{
-  // height: 10px;
+.job-single-header {
+  border-radius: 30px;
+  height: 400px;
+  max-width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url('../assets/SignContract.jpeg');
+  filter: brightness(70%);
+}
+.single-job-buttons-review{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -251,4 +202,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer{
+  width: 100%;
+  background-color: #ffffff;
+  text-align: center;
+  color: black;
+  height: 100px;  
+  line-height: 5px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 }

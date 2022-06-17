@@ -27,7 +27,7 @@ const Logo = ({ formData, setFormData }) => {
           <label htmlFor ='image' className="checkbox labl">Image Upload</label>
           <input 
             name='image'
-            className="input"
+            className="input-1"
             type="file"
             onChange={handleImageUpload}
           />

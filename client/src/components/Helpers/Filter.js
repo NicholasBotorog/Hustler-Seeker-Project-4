@@ -1,6 +1,4 @@
 import React from 'react'
-import Select from 'react-select'
-import { Form, FormControl } from 'react-bootstrap'
 
 const Filters = ({ filters, jobLocation, handleChange }) => {
   return (

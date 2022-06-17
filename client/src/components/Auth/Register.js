@@ -65,6 +65,12 @@ const Register = () => {
         <Row>
           <form className='col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mb-5' onSubmit={handleSubmit}>
             <h1>Register</h1>
+            <div className="field">
+              <ImageUpload
+                value= {formData.profile_image} onChange={handleChange}
+                setFormData={setFormData}
+              />
+            </div>
             {/* Username */}
             <label htmlFor="username">Username</label>
             <input type="text" name="username" className='input' placeholder='Username' value={formData.username} onChange={handleChange} />
@@ -103,13 +109,6 @@ const Register = () => {
             <label htmlFor="password_confirmation">Password Confirmation</label>
             <input type="password" id="pasword-confirmation" name="password_confirmation" className='input' placeholder='Password Confirmation' value={formData.password_confirmation} onChange={handleChange} />
             {errors.password_confirmation && <p className='text-danger'>{errors.password_confirmation}</p>}
-
-            <div className="field">
-              <ImageUpload
-                value= {formData.profile_image} onChange={handleChange}
-                setFormData={setFormData}
-              />
-            </div>
 
             {/* Submit */}
             <button type="submit" className="btn w-100">Register</button>

@@ -15,7 +15,7 @@ const PageNavbar = () => {
 
   const handleLogOut = () => {
     window.localStorage.removeItem('token')
-    navigate('/home')
+    navigate('/jobs')
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const PageNavbar = () => {
           {userIsAuthenticated() ?
             <>
               <Nav.Link style={{ color: 'black' }} as={Link} to="/post">Post</Nav.Link>
-              <Nav.Link style={{ color: 'black' }} as={Link} to="/profile">{profile.first_name}<img className='navbar-pic' src={profile.profile_image} /> </Nav.Link>
+              <Nav.Link style={{ color: 'black' }} as={Link} to="/profile">{profile.first_name}<img style={{ marginLeft: '5px' }} className='navbar-pic' src={profile.profile_image} alt={profile.username} /> </Nav.Link>
               <Nav.Link style={{ color: 'black' }} onClick={handleLogOut}>Logout</Nav.Link>
             </>
             :
