@@ -13,13 +13,6 @@ export default function Job({ job }) {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  let today = new Date()
-  const dd = String(today.getDate()).padStart(2, '0')
-  const mm = String(today.getMonth() + 1).padStart(2, '0') 
-  const yyyy = today.getFullYear()
-
-  today = mm + '/' + dd + '/' + yyyy
-
   return (
     <Col className='job-col'>
       <Card className="mb-3 ">
@@ -30,9 +23,9 @@ export default function Job({ job }) {
                 {job.title} - <span className="text-muted font-weight-light">{job.company}</span>
               </Card.Title>
               <Card.Subtitle className="text-muted mb-2">
-                {/* {new Date(job.created_at).toLocaleDateString()} */}
-                {today}
+                {new Date(job.created_at).toLocaleDateString()}
               </Card.Subtitle>
+              <span className = "badge bg-secondary" style={{ marginRight: '10px' }}>{job.job_type}</span>
               {job.tags.map((tag) => (
                 <span className ="badge bg-secondary" style={{ marginRight: '10px' }} key={tag.name}>
                   {tag.name}
@@ -40,10 +33,10 @@ export default function Job({ job }) {
               ))}
               <span className = "badge bg-secondary">{job.job_location}</span>
               <div style={{ wordBreak: 'break-all', marginTop: '10px' }}>
-                <a href='https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be' target='_blank' rel="noreferrer">https://ro.indeed.com/jobs?q=part%20time&l=Bucure%C8%99ti%2C%20Ilfov&vjk=12474cd6a36758be</a>
+                <a href={job.website} target='_blank' rel="noreferrer">{job.website}</a>
               </div>
             </div>
-            <img className="d-none d-md-block" height="50" alt={job.company} src='https://www.nms-mr.com/wp-content/uploads//2017/10/Mercedes-Benz-logo-2011-1920x1080.png' />
+            <img className="d-none d-md-block" height="50" alt={job.company} src={job.logo} />
           </div>
           <Card.Text className='mt-3'>
             <Button
@@ -55,7 +48,7 @@ export default function Job({ job }) {
           </Card.Text>
           <Collapse in={open}>
             <div className="mt-4">
-              <p>{job.description}</p>
+              <p>{job.display_message}</p>
               <Link className='btn btn-light' style={{ marginBottom: '5px', marginTop: '10px' }} to={`/jobs/${job.id}/`}>I am Interested!</Link>
               {userIsOwner(job.owner.id) && (
                 <div className="owner-buttons mb-4">

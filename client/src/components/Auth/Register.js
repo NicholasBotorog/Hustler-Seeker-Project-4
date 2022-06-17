@@ -15,6 +15,8 @@ const Register = () => {
     last_name: '',
     password: '',
     password_confirmation: '',
+    bio: '',
+    website: '',
     profile_image:
       'https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg',
   })
@@ -81,6 +83,16 @@ const Register = () => {
             <label htmlFor="last_name">Last Name</label>
             <input type="text" name="last_name" id="last-name"className='input' placeholder='Last Name' value={formData.last_name} onChange={handleChange} />
             {errors.last_name && <p className='text-danger'>{errors.last_name}</p>}
+
+            {/* Bio */}
+            <label htmlFor="bio">Description</label>
+            <input type="text" name="bio" id="last-name"className='input' placeholder='Last Name' value={formData.bio} onChange={handleChange} />
+            {errors.bio && <p className='text-danger'>{errors.bio}</p>}
+
+            {/* Website */}
+            <label htmlFor="website">Portfolio</label>
+            <input type="text" name="website" id="last-name"className='input' placeholder='Last Name' value={formData.website} onChange={handleChange} />
+            {errors.website && <p className='text-danger'>{errors.website}</p>}
 
             {/* Password */}
             <label htmlFor="password">Password</label>

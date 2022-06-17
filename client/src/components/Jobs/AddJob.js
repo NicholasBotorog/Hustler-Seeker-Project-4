@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { getTokenFromLocalStorage } from '../Helpers/auth'
-import { ImageUpload } from '../Helpers/ImageUpload'
+import  Logo from '../Helpers/Logo'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -20,6 +20,10 @@ const AddJob = () => {
     still_open: true,
     description: '',
     job_location: '',
+    job_type: '',
+    display_message: '',
+    website: '',
+    logo: 'https://www.kindpng.com/picc/m/206-2069779_generic-company-logo-clipart-best-transparent-background-generic.png',
     tags: [],
   })
   const [errors, setErrors] = useState(false)
@@ -62,7 +66,7 @@ const AddJob = () => {
 
   return (
     <section className="form-page">
-      <Container>
+      <Container style={{ marginBottom: '30px' }}>
         <Row>
           <form className='col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5' onSubmit={handleSubmit}>
             <h1>Looking for People? Post a Job with us ! </h1>
@@ -76,6 +80,11 @@ const AddJob = () => {
             <input type="text" name="title" className='input' placeholder='Title' value={formData.title} onChange={handleChange} />
             {errors.title && <p className='text-danger'>{errors.title}</p>}
 
+            {/* Display Message */}
+            <label htmlFor="display_message">Company Info</label>
+            <input type="text" name="display_message" className='input' placeholder='Short Description' value={formData.display_message} onChange={handleChange} />
+            {errors.display_message && <p className='text-danger'>{errors.display_message}</p>}
+
             {/* Description */}
             <label htmlFor="description">Description</label>
             <textarea name="description" className='input' placeholder='Description' value={formData.description} onChange={handleChange}></textarea>
@@ -85,6 +94,11 @@ const AddJob = () => {
             <label htmlFor="job_location">Job Location</label>
             <input type="text" name="job_location" className='input' placeholder='Job Location' id='job-location' value={formData.job_location} onChange={handleChange} />
             {errors.job_location && <p className='text-danger'>{errors.job_location}</p>}
+
+            {/* Type */}
+            <label htmlFor="job_type">Type</label>
+            <input type="text" name="job_type" className='input' placeholder='Type' value={formData.job_type} onChange={handleChange} />
+            {errors.job_type && <p className='text-danger'>{errors.job_type}</p>}
 
             {/* Salary */}
             <label htmlFor="salary">Salary</label>
@@ -105,11 +119,21 @@ const AddJob = () => {
               onChange={handleOptions}
             />
 
-            {/* Image */}
-            {/* <label htmlFor="image">Image</label>
-            <input type="text" name="image" className='input' placeholder='Image' value={formData.image} onChange={handleChange} />
-            {errors.image && <p className='text-danger'>{errors.image}</p>} */}
+            {/* Website*/}
+            <label htmlFor="website">Website</label>
+            <input type="text" name="website" className='input' placeholder='Website' value={formData.website} onChange={handleChange} />
+            {errors.website && <p className='text-danger'>{errors.website}</p>}
             
+            {/* Image */}
+            {/* <label htmlFor="logo">Logo</label> */}
+            <div className="field">
+              <Logo
+                value= {formData.logo} onChange={handleChange}
+                setFormData={setFormData}
+              />
+            </div>
+            {errors.logo && <p className='text-danger'>{errors.logo}</p>} 
+
             {/* Submit */}
             <button type="submit" className="btn btn-secondary w-100 mt-4">Post</button>
           </form>

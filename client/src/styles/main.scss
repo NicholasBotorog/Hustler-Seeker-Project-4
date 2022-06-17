@@ -153,8 +153,8 @@ body {
   max-width: 100px;
 }
 .job-card{
-  width: 200px;
-  height: 200px;
+  // width: 200px;
+  // height: 200px;
   overflow: hidden;
 }
 
@@ -228,7 +228,7 @@ body {
 //     filter: brightness(70%);
 //   }
 // }
-.randomImg {
+.job-main-header {
   border-radius: 30px;
   height: 400px;
   max-width: 100%;
@@ -239,4 +239,16 @@ body {
   background-size: cover;
   background-position: center;
   // filter: brightness(70%);
+}
+.single-job-buttons-review{
+  // height: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.h2-profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

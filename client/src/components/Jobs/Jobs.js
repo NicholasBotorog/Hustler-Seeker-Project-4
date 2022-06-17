@@ -81,8 +81,6 @@ const Jobs = () => {
         .filter((job) => {
           return ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')  && (job.tags.name === filters.tags || filters.tags === 'All') 
         })
-        // regexSearch.test(job.title) || regexSearch.test(job.company)
-        // ( regexSearch.test(job.title) || regexSearch.test(job.company) ) && (job.job_location === filters.location || filters.location === 'All')
       setFilteredJobs(filtered)
     }
   }, [filters, jobs])
@@ -95,7 +93,7 @@ const Jobs = () => {
     <>
       <Container className='header'>
         <div className='header-img'>
-          <Card.Body className='randomImg' style={{ backgroundImage: 'url(https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg)' }}>
+          <Card.Body className='job-main-header' style={{ backgroundImage: 'url(https://t4.ftcdn.net/jpg/04/36/95/29/360_F_436952958_gDv0jD4Zf0vMte9qBssJRLUhEbGm1NQY.jpg)' }}>
             <Form className='search-field' style={{ marginTop: '200px' }}>
               <Form.Group style={{ display: 'flex', justifyContent: 'space-around', alignContent: 'center' }}>
                 <FormControl style={{ marginRight: '10px', height: '43px', marginTop: '4px' }} className='search-bar' type="search" name="searchTerm" value={filters.searchTerm} placeholder="Looking for Work ?" onChange={handleChange} />
