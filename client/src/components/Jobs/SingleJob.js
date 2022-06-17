@@ -144,12 +144,9 @@ const SingleJob = () => {
                     <Card.Subtitle className="text-muted mb-2">
                       {formatMoney(job.salary)}<br />
                       <div style={{ marginTop: '7px' }}>
-                        {userIsOwner ? (
+                        {userIsOwner(job.owner.id) && (
                           <p>Aplicants: <span>{job.aplication.length}</span></p>
-                        )
-                          :
-                          (null)
-                        }
+                        )}
                       </div>
                       <hr />
                       {new Date(job.created_at).toLocaleDateString()} 
