@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import ImageUpload from '../Helpers/ImageUpload'
+import ImageUpload from '../helpers/ImageUpload'
 
 
 const Register = () => {

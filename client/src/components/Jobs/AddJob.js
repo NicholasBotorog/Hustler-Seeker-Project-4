@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { getTokenFromLocalStorage } from '../Helpers/auth'
-import  Logo from '../Helpers/Logo'
+import { getTokenFromLocalStorage } from '../helpers/auth'
+import  Logo from '../helpers/Logo'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'

@@ -4,17 +4,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
 import './styles/main.scss'
-import Jobs from './components/Jobs/Jobs'
-import PageNavbar from './components/Common/Navbar'
-import Register from './components/Auth/Register'
-import Login from './components/Auth/Login'
-import UserProfile from './components/Profile/UserProfile'
-import AddJobs from './components/Jobs/AddJob'
-import SingleJob from './components/Jobs/SingleJob'
-import EditJob from './components/Jobs/EditJob'
-import EditProfile from './components/Profile/EditProfile'
-import Footer from './components/Common/Footer'
-import Home from './components/Common/Home'
+import Jobs from './components/jobs/Jobs'
+import PageNavbar from './components/common/Navbar'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
+import UserProfile from './components/profile/UserProfile'
+import AddJobs from './components/jobs/AddJob'
+import SingleJob from './components/jobs/SingleJob'
+import EditJob from './components/jobs/EditJob'
+import EditProfile from './components/profile/EditProfile'
+import Footer from './components/common/Footer'
+import Home from './components/common/Home'
 
 
 const App = () => {

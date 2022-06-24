@@ -10,6 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import django_on_heroku # put this at the top of the file
+
+# all the rest of the settings file...
+
+django_on_heroku.settings(locals()) # put this last
+
+
 from pathlib import Path
 import os
 

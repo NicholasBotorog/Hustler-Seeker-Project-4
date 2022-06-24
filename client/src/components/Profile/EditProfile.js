@@ -1,8 +1,8 @@
 import React , { useState , useEffect } from 'react'
 import axios from 'axios'
-import { Link , useNavigate, useParams } from 'react-router-dom'
-import { getTokenFromLocalStorage, getPayload, userIsOwner } from '../Helpers/auth'
-import ImageUpload from '../Helpers/ImageUpload'
+import { useNavigate } from 'react-router-dom'
+import { getTokenFromLocalStorage } from '../helpers/auth'
+import ImageUpload from '../helpers/ImageUpload'
 
 
 import Container from 'react-bootstrap/Container'

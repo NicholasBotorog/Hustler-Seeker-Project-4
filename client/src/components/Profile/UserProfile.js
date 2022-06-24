@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { getTokenFromLocalStorage, getUserId } from '../Helpers/auth'
+import { getTokenFromLocalStorage, getUserId } from '../helpers/auth'
 import axios from 'axios'
-import JobList from '../Jobs/JobList'
-import SingleJob from '../Jobs/SingleJob'
-import { useParams } from 'react-router-dom'
+import JobList from '../jobs/JobList'
 import { Link } from 'react-router-dom'
 
 import { Button, Row, Col, Container } from 'react-bootstrap'

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 
-import { getUserId, userIsOwner } from '../Helpers/auth'
-import { getTokenFromLocalStorage } from '../Helpers/auth'
+import { getUserId, userIsOwner } from '../helpers/auth'
+import { getTokenFromLocalStorage } from '../helpers/auth'
 
 import { Col, Button, Card, Container, Form, Modal } from 'react-bootstrap'
 

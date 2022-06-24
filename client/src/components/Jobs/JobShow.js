@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, Collapse, Col } from 'react-bootstrap'
-import { userIsOwner } from '../Helpers/auth'
+import { userIsOwner } from '../helpers/auth'
 
 
 export default function Job({ job }) {

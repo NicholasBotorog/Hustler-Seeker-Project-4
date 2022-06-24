@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Card, Container, Form, FormControl } from 'react-bootstrap'
 import Job from './JobShow'
-import Filters from '../Helpers/Filter'
-// import FiltersCompany from '../Helpers/TagsFilter'
+import Filters from '../helpers/Filter'
+// import FiltersCompany from '../helpers/TagsFilter'
 
 const Jobs = () => { 
 

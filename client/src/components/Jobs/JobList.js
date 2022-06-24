@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
+import { getTokenFromLocalStorage } from '../helpers/auth'
 
 import { Col, Button, Card, Container } from 'react-bootstrap'
 
-import { userIsOwner } from '../Helpers/auth'
+import { userIsOwner } from '../helpers/auth'
 
 
 const JobList = ({ job }) => { 
