@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2161a26c.css",
+    "main.js": "/static/js/main.75d4ca33.js",
+    "static/media/main.jpeg": "/static/media/main.923c18e62d26716fe15b.jpeg",
+    "static/media/SignContract.jpeg": "/static/media/SignContract.1d8ef3633c4042f996c6.jpeg",
+    "index.html": "/index.html",
+    "main.2161a26c.css.map": "/static/css/main.2161a26c.css.map",
+    "main.75d4ca33.js.map": "/static/js/main.75d4ca33.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2161a26c.css",
+    "static/js/main.75d4ca33.js"
+  ]
+}
