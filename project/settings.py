@@ -12,10 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import django_on_heroku # put this at the top of the file
 
-# all the rest of the settings file...
-
-django_on_heroku.settings(locals()) # put this last
-
 
 from pathlib import Path
 import os
@@ -66,7 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
@@ -162,3 +157,5 @@ STATIC_URL = '/static/' # same with this
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'client', "build", "static"),
 )
+
+django_on_heroku.settings(locals()) # put this last
