@@ -27,6 +27,7 @@ const Login = () => {
       const { data } = await axios.post('/api/auth/login/', formData)
       setTokenToLocalStorage(data.token)
       navigate('/profile')
+      window.location.reload()
     } catch (err) {
       console.log(err)
       setErrors(true)

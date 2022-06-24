@@ -15,8 +15,10 @@ const Register = () => {
     last_name: '',
     password: '',
     password_confirmation: '',
+    bio: '',
+    website: '',
     profile_image:
-      'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
+      'https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg',
   })
 
   const [ errors, setErrors ] = useState({
@@ -63,6 +65,12 @@ const Register = () => {
         <Row>
           <form className='col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mb-5' onSubmit={handleSubmit}>
             <h1>Register</h1>
+            <div className="field">
+              <ImageUpload
+                value= {formData.profile_image} onChange={handleChange}
+                setFormData={setFormData}
+              />
+            </div>
             {/* Username */}
             <label htmlFor="username">Username</label>
             <input type="text" name="username" className='input' placeholder='Username' value={formData.username} onChange={handleChange} />
@@ -82,6 +90,16 @@ const Register = () => {
             <input type="text" name="last_name" id="last-name"className='input' placeholder='Last Name' value={formData.last_name} onChange={handleChange} />
             {errors.last_name && <p className='text-danger'>{errors.last_name}</p>}
 
+            {/* Bio */}
+            <label htmlFor="bio">Description</label>
+            <input type="text" name="bio" id="last-name"className='input' placeholder='Last Name' value={formData.bio} onChange={handleChange} />
+            {errors.bio && <p className='text-danger'>{errors.bio}</p>}
+
+            {/* Website */}
+            <label htmlFor="website">Portfolio</label>
+            <input type="text" name="website" id="last-name"className='input' placeholder='Last Name' value={formData.website} onChange={handleChange} />
+            {errors.website && <p className='text-danger'>{errors.website}</p>}
+
             {/* Password */}
             <label htmlFor="password">Password</label>
             <input type="password" name="password" className='input' placeholder='Password' value={formData.password} onChange={handleChange} />
@@ -91,13 +109,6 @@ const Register = () => {
             <label htmlFor="password_confirmation">Password Confirmation</label>
             <input type="password" id="pasword-confirmation" name="password_confirmation" className='input' placeholder='Password Confirmation' value={formData.password_confirmation} onChange={handleChange} />
             {errors.password_confirmation && <p className='text-danger'>{errors.password_confirmation}</p>}
-
-            <div className="field">
-              <ImageUpload
-                value= {formData.image} onChange={handleChange}
-                setFormData={setFormData}
-              />
-            </div>
 
             {/* Submit */}
             <button type="submit" className="btn w-100">Register</button>

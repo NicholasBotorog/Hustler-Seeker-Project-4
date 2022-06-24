@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-const ImageUpload = ({ formData, setFormData }) => { 
+const Logo = ({ formData, setFormData }) => { 
 
   const uploadURL = process.env.REACT_APP_CLOUDINARY_URL
   const preset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
@@ -13,14 +13,14 @@ const ImageUpload = ({ formData, setFormData }) => {
     data.append('file', e.target.files[0])
     data.append('upload_preset', preset)
     const res = await axios.post(uploadURL, data)
-    setFormData({ ...formData, profile_image: res.data.url })
+    setFormData({ ...formData, logo: res.data.url })
   }
 
   return (
     <>
-      { FormData.profileImage ? 
+      { FormData.logo ? 
         <div>
-          <img src={formData.profile_image} alt='Image to upload' />
+          <img src={formData.logo} alt='Image to upload' />
         </div>
         :
         <>
@@ -37,4 +37,4 @@ const ImageUpload = ({ formData, setFormData }) => {
   )
 }
 
-export default ImageUpload
+export default Logo

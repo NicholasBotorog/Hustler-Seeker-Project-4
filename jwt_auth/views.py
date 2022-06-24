@@ -82,8 +82,23 @@ class LoggedUserView(APIView):
         serialized_user = UserSerializer(user)
         return Response(serialized_user.data, status=status.HTTP_200_OK)
 
+  # def put (self, request, pk): 
+  #   user_to_edit = self.get_user(pk = request.user.id)
+  #   deserialized_user= UserSerializer(user_to_edit, data=request.data)
+  #   try:
+  #     deserialized_user.is_valid(True)
+  #     deserialized_user.save()
+  #     return Response(deserialized_user.data, status.HTTP_202_ACCEPTED)
+  #   except Exception as e:
+  #     return Response({ 'error' : str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+  def delete(self, request,pk):
+    user_to_delete = self.get_user(pk, request.user.id)
+    user_to_delete.delete()
+    return Response(status = status.HTTP_204_NO_CONTENT)
+
   def put (self, request, pk): 
-    user_to_edit = self.get_user(pk = request.user.id)
+    user_to_edit = self.get_user(pk = pk)
     deserialized_user= UserSerializer(user_to_edit, data=request.data)
     try:
       deserialized_user.is_valid(True)
@@ -92,7 +107,57 @@ class LoggedUserView(APIView):
     except Exception as e:
       return Response({ 'error' : str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-  def delete(self, request,pk):
-    user_to_delete = self.get_user(pk, request.user.id)
-    user_to_delete.delete()
-    return Response(status = status.HTTP_204_NO_CONTENT)
+
+class UserView(APIView):
+
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise PermissionDenied(detail="Invalid Credentials")
+
+    def get(self, _request, pk):
+        user = self.get_user(pk=pk)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+        
+# ! NOU ADAUGAT 
+    def put (self, request, pk): 
+      user_to_edit = self.get_user(pk = pk)
+      deserialized_user= UserSerializer(user_to_edit, data=request.data)
+      try:
+        deserialized_user.is_valid(True)
+        deserialized_user.save()
+        return Response(deserialized_user.data, status.HTTP_202_ACCEPTED)
+      except Exception as e:
+        return Response({ 'error' : str(e) }, status.HTTP_422_UNPROCESSABLE_ENTITY)    
+
+
+
+class LoggedInProfileView(APIView):
+
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise PermissionDenied(detail="Invalid Credentials")
+
+    def get(self, request):
+        user = self.get_user(pk=request.user.id)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        user_to_edit = self.get_user(pk = request.user.id)
+        deserialized_user = UserSerializer(user_to_edit, data=request.data)
+        try:
+            deserialized_user.is_valid(True)
+            deserialized_user.save()
+            return Response(deserialized_user.data, status.HTTP_202_ACCEPTED)
+        except Exception as e:
+            return Response( e.args[0] , status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request, pk):
+        user_to_delete = self.get_user(pk, request.user.id)
+        user_to_delete.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
