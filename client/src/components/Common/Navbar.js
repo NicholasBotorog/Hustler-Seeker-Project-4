@@ -38,7 +38,10 @@ const PageNavbar = () => {
       <Container>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Navbar.Brand as={Link} to="/jobs"> <img className='navbar-pic' style= {{ width: '30px' }} src='https://www.kindpng.com/picc/m/206-2069779_generic-company-logo-clipart-best-transparent-background-generic.png' /> Home</Navbar.Brand>
+            {userIsAuthenticated() ?
+              <Navbar.Brand as={Link} to="/jobs"> <img className='navbar-pic' style= {{ width: '30px' }} src={'https://www.kindpng.com/picc/m/206-2069779_generic-company-logo-clipart-best-transparent-background-generic.png'} /> Home</Navbar.Brand>
+              :
+              <img className='navbar-pic' style= {{ width: '30px' }} src='https://www.kindpng.com/picc/m/206-2069779_generic-company-logo-clipart-best-transparent-background-generic.png' />} 
           </Nav>
           {userIsAuthenticated() ?
             <>
