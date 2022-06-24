@@ -1,17 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Card, Badge, Button, Collapse, Col } from 'react-bootstrap'
-import { getUserId, userIsOwner } from '../Helpers/auth'
-import { getTokenFromLocalStorage, getPayload } from '../Helpers/auth'
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Card, Button, Collapse, Col } from 'react-bootstrap'
+import { userIsOwner } from '../Helpers/auth'
 
 
 export default function Job({ job }) {
 
   const [open, setOpen] = useState(false)
-  const { id } = useParams()
-  const navigate = useNavigate()
 
   return (
     <Col className='job-col'>
