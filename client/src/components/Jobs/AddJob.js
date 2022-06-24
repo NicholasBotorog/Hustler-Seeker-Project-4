@@ -70,6 +70,17 @@ const AddJob = () => {
         <Row>
           <form className='col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5' onSubmit={handleSubmit}>
             <h1>Looking for People? Post a Job with us ! </h1>
+
+            {/* Image */}
+            <div className="field">
+              <Logo
+                value= {formData.logo} onChange={handleChange}
+                setFormData={setFormData}
+              />
+            </div>
+            {errors.logo && <p className='text-danger'>{errors.logo}</p>} 
+
+
             {/* Company */}
             <label htmlFor="company">Company</label>
             <input type="text" name="company" className='input' placeholder='Company' value={formData.company} onChange={handleChange} />
@@ -124,16 +135,6 @@ const AddJob = () => {
             <input type="text" name="website" className='input' placeholder='Website' value={formData.website} onChange={handleChange} />
             {errors.website && <p className='text-danger'>{errors.website}</p>}
             
-            {/* Image */}
-            {/* <label htmlFor="logo">Logo</label> */}
-            <div className="field">
-              <Logo
-                value= {formData.logo} onChange={handleChange}
-                setFormData={setFormData}
-              />
-            </div>
-            {errors.logo && <p className='text-danger'>{errors.logo}</p>} 
-
             {/* Submit */}
             <button type="submit" className="btn btn-secondary w-100 mt-4">Post</button>
           </form>

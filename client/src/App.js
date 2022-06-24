@@ -14,6 +14,7 @@ import SingleJob from './components/Jobs/SingleJob'
 import EditJob from './components/Jobs/EditJob'
 import EditProfile from './components/Profile/EditProfile'
 import Footer from './components/Common/Footer'
+import Home from './components/Common/Home'
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
       <BrowserRouter>
         <PageNavbar />
         <Routes>
+          <Route path ='/' element={<Home />} /> 
           <Route path='/jobs' element={<Jobs />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />

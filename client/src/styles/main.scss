@@ -191,6 +191,17 @@ body {
   background-image: url('../assets/SignContract.jpeg');
   filter: brightness(70%);
 }
+.hero {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('../assets/main.jpeg');
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .single-job-buttons-review{
   display: flex;
   justify-content: space-around;

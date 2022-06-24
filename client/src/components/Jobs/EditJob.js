@@ -40,16 +40,23 @@ const EditJob = () => {
     setFormData({ ...formData, tags: tags.map((tag) => tag.id) })
   }
 
+  useEffect( () => { 
+    const getTags = async () => { 
+      const { data } = await axios.get('/api/tags/')
+      setMulti(data)
+    }
+    getTags()
+  }, [])
+
   useEffect(() => {
     const getJobs = async () => { 
       try {
         const { data } = await axios.get(`/api/jobs/${id}/`)
         console.log(data)
-        setJob(data)
+        // setJob(data)
         setFormData(
           {
             title: data.title,
-            owner: data.owner.id,
             company: data.company,
             salary: data.salary,
             still_open: data.still_open,
@@ -59,7 +66,8 @@ const EditJob = () => {
             job_location: data.job_location,
             website: data.website,
             logo: data.logo,
-            tags: data.tags.map((tag) => tag.id),
+            tags: data.tags,
+            owner: data.owner.id,
           }
         )
       } catch (error) {
@@ -72,7 +80,7 @@ const EditJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.put(`/api/jobs/${id}/`, formData, {
+      await axios.put(`/api/jobs/${id}/`, formData, {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
@@ -86,15 +94,8 @@ const EditJob = () => {
     }
   }
 
-  useEffect( () => { 
-    const getTags = async () => { 
-      const { data } = await axios.get('/api/tags/')
-      setMulti(data)
-    }
-    getTags()
-  }, [])
-
   const animatedComponents = makeAnimated()
+
 
   return (
     <section className="form-page">

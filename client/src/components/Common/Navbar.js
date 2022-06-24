@@ -15,7 +15,7 @@ const PageNavbar = () => {
 
   const handleLogOut = () => {
     window.localStorage.removeItem('token')
-    navigate('/jobs')
+    navigate('/')
   }
 
   useEffect(() => {

@@ -45,21 +45,6 @@ const Jobs = () => {
   const jobsPerPage = 3
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage)
 
-  // useEffect( () => { 
-  //   const getTags = async () => { 
-  //     const { data } = await axios.get('/api/tags/')
-  //     setTags(data)
-  //   }
-  //   getTags()
-  // }, [])
-
-  // useEffect(() => { 
-  //   if (tags.length) {
-  //     const tagList = []
-  //     tags.forEach(tag => tagList.includes(tag) ? '' : tagList.push(tag))
-  //   }
-  // }, [tags])
-
   useEffect(() => {
     if (jobs.length) {
       const locationList = []
