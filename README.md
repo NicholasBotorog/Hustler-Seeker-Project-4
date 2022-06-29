@@ -86,10 +86,12 @@ I tried to keep the style clean and minimalistic.
 * I understood much better the authentication process.
 * I learnt that time managements is crucial when doing a solo project. Planning is everything and by doing it solo there are a lot of unpredictable problems that are going to occur that need to be taken in consideration.
 * I learnt a lot about React
+* By this project I was a lot more in tune with how I work best and got into a good, productive workflow each day; it was intimidating to do the project solo however I wanted to make sure I really knew where my personal strengths and weaknesses lay.
 
 
 ## Challenges:
 
+* Time managing, prioritizing some aspects of the app. 
 
 
 
