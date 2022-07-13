@@ -12,7 +12,7 @@ Hustle Seeker is a web-app where you can search for jobs, apply to jobs, post re
 
 ## Goal 
 
-This was an 8 day solo project. I was asked to build a full stack application with a React front-end and a Django back-end, a fully functional RESTful API with all routes(GET, POST ,PUT, DELETE) and relationships including OneToMany and ManyToMany.
+This was an 8 day solo project. I was asked to build a full stack application with a React front-end and a Django back-end, a fully functional RESTful API with all routes (GET, POST, PUT, DELETE) and relationships including OneToMany and ManyToMany.
 
 
 ## Technologies used 
@@ -37,6 +37,7 @@ I created a wireframe of the back-end:
 
 <img width="1176" alt="Screen Shot 2022-06-28 at 12 11 30 PM" src="https://user-images.githubusercontent.com/103049873/176141414-7bffa2a1-3a9a-484a-8f01-9aa8cc33b104.png">
 
+This consists in 5 different schemas interconnected: utilizing MantToMany and ManyToOne fields.
 
 ## Build process
 ## Back-end
