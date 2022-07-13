@@ -57,8 +57,13 @@ Next I implemented the Apply and Reviews app. The models are based on ManyToOne 
 
 After I completed the back-end and I made sure, using Insomnia, that everything is working fine I started to build the front-end. 
 
+The plan for the front-end was to complete all functionality first and then move on to the style.
+
 I began creating the register and login page. 
-After this I create the jobs listing page, which has different filters such as:
+
+Next step was to create all the functionalities that I made in the backend (GET, POST, UPDATE, DELETE).
+
+After this I created the jobs listing page, which has different filters such as:
 
 * Search field where you can search by job title or by company name 
 * Dropdown for all the locations 
